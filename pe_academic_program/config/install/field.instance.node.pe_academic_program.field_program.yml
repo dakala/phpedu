@@ -1,0 +1,18 @@
+id: node.pe_academic_program.field_program
+status: true
+langcode: en
+field_name: field_program
+entity_type: node
+bundle: pe_academic_program
+label: Program
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  handler: default
+dependencies:
+  entity:
+    - field.field.node.field_program
+    - node.type.pe_academic_program
+field_type: taxonomy_term_reference

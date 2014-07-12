@@ -1,0 +1,16 @@
+id: node.field_url
+status: true
+langcode: en
+name: field_url
+entity_type: node
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+dependencies:
+  module:
+    - link
+    - node

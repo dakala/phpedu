@@ -1,0 +1,8 @@
+vid: duration_unit
+name: 'Duration unit'
+description: 'Unit of time'
+hierarchy: 0
+weight: 0
+status: true
+langcode: en
+dependencies: {  }

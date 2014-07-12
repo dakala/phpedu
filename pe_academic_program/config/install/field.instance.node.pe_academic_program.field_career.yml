@@ -1,0 +1,18 @@
+id: node.pe_academic_program.field_career
+status: true
+langcode: en
+field_name: field_career
+entity_type: node
+bundle: pe_academic_program
+label: Career
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  text_processing: '0'
+dependencies:
+  entity:
+    - field.field.node.field_career
+    - node.type.pe_academic_program
+field_type: text_long

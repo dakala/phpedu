@@ -1,0 +1,32 @@
+id: node.pe_section.field_section_head
+status: true
+langcode: en
+field_name: field_section_head
+entity_type: node
+bundle: pe_section
+label: 'Section head'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  handler: default
+  handler_settings:
+    filter:
+      type: role
+      role:
+        teacher: teacher
+        administrator: '0'
+        student: '0'
+        parent: '0'
+        alumnus: '0'
+        secretary: '0'
+        staff: '0'
+    target_bundles: {  }
+    sort:
+      field: _none
+dependencies:
+  entity:
+    - field.field.node.field_section_head
+    - node.type.pe_section
+field_type: entity_reference

@@ -1,0 +1,8 @@
+vid: program
+name: Program
+description: 'Academic programs offered at the university.'
+hierarchy: 0
+weight: 0
+status: true
+langcode: en
+dependencies: {  }

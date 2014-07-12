@@ -1,0 +1,18 @@
+id: node.pe_section.field_section_type
+status: true
+langcode: en
+field_name: field_section_type
+entity_type: node
+bundle: pe_section
+label: 'Section type'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  handler: default
+dependencies:
+  entity:
+    - field.field.node.field_section_type
+    - node.type.pe_section
+field_type: taxonomy_term_reference

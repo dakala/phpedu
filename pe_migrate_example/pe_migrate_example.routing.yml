@@ -1,0 +1,6 @@
+pe_migrate_example.description:
+  path: '/examples/pe_migrate_example'
+  defaults:
+    _content: '\Drupal\pe_migrate_example\Controller\MigrateExampleController::description'
+  requirements:
+    _access: 'TRUE'

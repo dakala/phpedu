@@ -1,0 +1,6 @@
+id: teacher
+label: Teacher
+weight: 4
+permissions: {  }
+status: true
+langcode: en

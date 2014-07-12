@@ -1,0 +1,18 @@
+type: pe_course
+name: Course
+description: 'A <em>course</em> is a set of instructional material to be studied as unit by students over a period of time e.g. 1 or more academic terms.'
+help: ''
+has_title: true
+title_label: Title
+settings:
+  node:
+    preview: 1
+    options:
+      status: true
+      promote: false
+      sticky: false
+      revision: false
+    submitted: false
+status: true
+langcode: en
+dependencies: {  }

@@ -1,0 +1,60 @@
+id: node.pe_edu.teaser
+targetEntityType: node
+bundle: pe_edu
+mode: teaser
+content:
+  field_image:
+    type: responsive_image
+    weight: 0
+    settings:
+      responsive_image_mapping: ''
+      fallback_image_style: ''
+      image_link: ''
+    label: above
+  body:
+    type: text_summary_or_trimmed
+    weight: 1
+    settings:
+      trim_length: 600
+    label: hidden
+  field_institution_type:
+    type: taxonomy_term_reference_plain
+    weight: 2
+    settings: {  }
+    label: above
+hidden:
+  langcode: true
+  field_address: true
+  field_defunct_date: true
+  field_duns_number: true
+  field_email: true
+  field_fax_number: true
+  field_founding_date: true
+  field_legal_name: true
+  field_tax_id: true
+  field_telephone_number: true
+  field_url: true
+  field_vat_id: true
+status: true
+dependencies:
+  entity:
+    - entity.view_mode.node.teaser
+    - field.instance.node.pe_edu.body
+    - field.instance.node.pe_edu.field_address
+    - field.instance.node.pe_edu.field_defunct_date
+    - field.instance.node.pe_edu.field_duns_number
+    - field.instance.node.pe_edu.field_email
+    - field.instance.node.pe_edu.field_fax_number
+    - field.instance.node.pe_edu.field_founding_date
+    - field.instance.node.pe_edu.field_image
+    - field.instance.node.pe_edu.field_institution_type
+    - field.instance.node.pe_edu.field_legal_name
+    - field.instance.node.pe_edu.field_tax_id
+    - field.instance.node.pe_edu.field_telephone_number
+    - field.instance.node.pe_edu.field_url
+    - field.instance.node.pe_edu.field_vat_id
+    - node.type.pe_edu
+  module:
+    - responsive_image
+    - taxonomy
+    - text

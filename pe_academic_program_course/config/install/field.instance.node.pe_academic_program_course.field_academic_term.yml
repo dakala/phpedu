@@ -1,0 +1,23 @@
+id: node.pe_academic_program_course.field_academic_term
+status: true
+langcode: en
+field_name: field_academic_term
+entity_type: node
+bundle: pe_academic_program_course
+label: 'Academic term'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  handler: default
+  handler_settings:
+    target_bundles:
+      pe_academic_term: pe_academic_term
+    sort:
+      field: _none
+dependencies:
+  entity:
+    - field.field.node.field_academic_term
+    - node.type.pe_academic_program_course
+field_type: entity_reference

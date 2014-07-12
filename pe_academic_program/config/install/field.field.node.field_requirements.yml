@@ -1,0 +1,16 @@
+id: node.field_requirements
+status: true
+langcode: en
+name: field_requirements
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+dependencies:
+  module:
+    - node
+    - text

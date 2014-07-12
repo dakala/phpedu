@@ -1,0 +1,19 @@
+id: node.pe_assignment_answer.field_score
+uuid: ebd78fdc-7f4d-4af1-ac5c-924e720bf627
+status: true
+langcode: en
+field_uuid: ec45fdeb-cdb0-47f8-bb00-0f3801b57629
+field_name: field_score
+entity_type: node
+bundle: pe_assignment_answer
+label: Score
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

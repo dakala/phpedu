@@ -1,0 +1,17 @@
+id: node.field_percent
+uuid: fcafd90a-f005-4f1d-b806-6a86b0fee8f1
+status: true
+langcode: en
+name: field_percent
+entity_type: node
+type: list_boolean
+settings:
+  allowed_values:
+    - ''
+    - ''
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }

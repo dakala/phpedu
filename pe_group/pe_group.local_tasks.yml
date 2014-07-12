@@ -1,0 +1,41 @@
+group.page:
+  title: 'View'
+  route_name: group.page
+  base_route: group.page
+  weight: -10
+
+group.edit:
+  title: 'Edit'
+  route_name: group.edit
+  base_route: group.page
+  weight: -9
+
+group.members_list:
+  title: 'List members'
+  route_name: group.members_list
+  base_route: group.page
+  weight: -8
+
+group.members_add:
+  title: 'Add members'
+  route_name: group.members_add
+  base_route: group.page
+  weight: -7
+
+group.posts:
+  title: 'Posts'
+  route_name: group.posts
+  base_route: group.page
+  weight: -6
+
+group.group_admin_list:
+  title: 'Groups'
+  route_name: group.group_admin_list
+  base_route: user.admin_account
+  weight: 20
+
+group.role_list:
+  title: 'Group Roles'
+  route_name: group.role_list
+  base_route: user.admin_account
+  weight: 21

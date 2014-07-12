@@ -1,0 +1,13 @@
+id: node.field_score
+uuid: ec45fdeb-cdb0-47f8-bb00-0f3801b57629
+status: true
+langcode: en
+name: field_score
+entity_type: node
+type: integer
+settings: {  }
+module: Core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }

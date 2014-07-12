@@ -1,0 +1,18 @@
+id: node.pe_edu.field_tax_id
+status: true
+langcode: en
+field_name: field_tax_id
+entity_type: node
+bundle: pe_edu
+label: 'Tax ID'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  text_processing: 0
+dependencies:
+  entity:
+    - field.field.node.field_tax_id
+    - node.type.pe_edu
+field_type: text

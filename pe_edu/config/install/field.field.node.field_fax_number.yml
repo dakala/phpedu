@@ -1,0 +1,16 @@
+id: node.field_fax_number
+status: true
+langcode: en
+name: field_fax_number
+entity_type: node
+type: telephone
+settings: {  }
+module: telephone
+locked: false
+cardinality: -1
+translatable: false
+indexes: {  }
+dependencies:
+  module:
+    - node
+    - telephone

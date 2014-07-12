@@ -1,0 +1,8 @@
+vid: course_weight
+name: 'Course weight'
+description: 'Relative importance of different courses.'
+hierarchy: 0
+weight: 0
+status: true
+langcode: en
+dependencies: {  }

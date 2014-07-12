@@ -1,0 +1,18 @@
+id: node.pe_academic_program.field_duration_unit
+status: true
+langcode: en
+field_name: field_duration_unit
+entity_type: node
+bundle: pe_academic_program
+label: 'Duration unit'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  handler: default
+dependencies:
+  entity:
+    - field.field.node.field_duration_unit
+    - node.type.pe_academic_program
+field_type: taxonomy_term_reference

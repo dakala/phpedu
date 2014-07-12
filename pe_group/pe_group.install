@@ -1,0 +1,92 @@
+<?php
+
+/*
+ * @file
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function pe_group_install() {
+
+}
+
+/**
+ * Implements hook_schema().
+ */
+function pe_group_schema() {
+  $schema['taxonomy_term_machine_name'] = array(
+    'description' => 'Stores machine names for taxonomy terms.',
+    'fields' => array(
+      'tid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "The {taxonomy_term_data}.tid of the term.",
+      ),
+      'machine_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The term machine name.',
+      ),
+    ),
+    'primary key' => array('tid'),
+    'indexes' => array(
+      'tid' => array('tid'),
+    ),
+  );
+
+  $schema['users_group_roles'] = array(
+    'description' => 'Maps users to group roles.',
+    'fields' => array(
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Primary Key: {users}.uid for user.',
+      ),
+      'tid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Primary Key: {taxonomy_term_data}.tid for group term.',
+      ),
+      'rid' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'description' => 'Primary Key: ID for the group role.',
+      ),
+    ),
+    'primary key' => array('uid', 'rid', 'tid'),
+    'indexes' => array(
+      'rid' => array('rid'),
+    ),
+    'foreign keys' => array(
+      'user' => array(
+        'table' => 'users',
+        'columns' => array('uid' => 'uid'),
+      ),
+    ),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Remove machine_name column from taxonomy_term_data table.
+ */
+function pe_group_uninstall() {
+  db_drop_table('taxonomy_term_machine_name');
+  db_drop_table('users_group_roles');
+}
+
+// @todo: create administrator, secretary, leader, member

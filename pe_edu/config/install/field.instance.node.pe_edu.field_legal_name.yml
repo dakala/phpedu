@@ -1,0 +1,18 @@
+id: node.pe_edu.field_legal_name
+status: true
+langcode: en
+field_name: field_legal_name
+entity_type: node
+bundle: pe_edu
+label: 'Legal name'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  text_processing: 0
+dependencies:
+  entity:
+    - field.field.node.field_legal_name
+    - node.type.pe_edu
+field_type: text

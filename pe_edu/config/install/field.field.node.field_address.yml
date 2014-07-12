@@ -1,0 +1,16 @@
+id: node.field_address
+status: true
+langcode: en
+name: field_address
+entity_type: node
+type: simpleaddress
+settings: {  }
+module: simpleaddress
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+dependencies:
+  module:
+    - node
+    - simpleaddress

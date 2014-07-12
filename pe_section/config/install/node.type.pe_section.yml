@@ -1,0 +1,18 @@
+type: pe_section
+name: Section
+description: 'Details about a section at an educational institution or organisation.'
+help: ''
+has_title: true
+title_label: Title
+settings:
+  node:
+    preview: 1
+    options:
+      status: true
+      promote: false
+      sticky: false
+      revision: false
+    submitted: false
+status: true
+langcode: en
+dependencies: {  }

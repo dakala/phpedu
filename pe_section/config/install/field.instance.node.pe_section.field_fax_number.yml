@@ -1,0 +1,17 @@
+id: node.pe_section.field_fax_number
+status: true
+langcode: en
+field_name: field_fax_number
+entity_type: node
+bundle: pe_section
+label: 'Fax number'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings: {  }
+dependencies:
+  entity:
+    - field.field.node.field_fax_number
+    - node.type.pe_section
+field_type: telephone

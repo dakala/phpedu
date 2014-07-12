@@ -1,0 +1,53 @@
+id: node.pe_academic_term.default
+targetEntityType: node
+bundle: pe_academic_term
+mode: default
+content:
+  title:
+    type: string
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+  body:
+    type: text_textarea_with_summary
+    weight: 1
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+  field_term:
+    type: options_select
+    weight: 2
+    settings: {  }
+  field_start_date:
+    type: datetime_default
+    weight: 3
+    settings: {  }
+  field_end_date:
+    type: datetime_default
+    weight: 4
+    settings: {  }
+  field_academic_year:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+hidden: {  }
+status: true
+dependencies:
+  entity:
+    - field.instance.node.pe_academic_term.body
+    - field.instance.node.pe_academic_term.field_academic_year
+    - field.instance.node.pe_academic_term.field_end_date
+    - field.instance.node.pe_academic_term.field_start_date
+    - field.instance.node.pe_academic_term.field_term
+    - node.type.pe_academic_term
+  module:
+    - datetime
+    - entity_reference
+    - options
+    - text

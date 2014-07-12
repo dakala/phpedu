@@ -1,0 +1,18 @@
+type: pe_academic_year
+name: 'Academic year'
+description: 'An academic year is a period of academic study which lasts a number of calendar months. This may last from January to December or October to July. An academic year usually comprises of 2 or more academic terms.'
+help: ''
+has_title: true
+title_label: Title
+settings:
+  node:
+    preview: 1
+    options:
+      status: true
+      promote: false
+      sticky: false
+      revision: false
+    submitted: false
+status: true
+langcode: en
+dependencies: {  }

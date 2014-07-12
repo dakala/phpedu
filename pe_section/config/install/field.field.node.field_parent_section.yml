@@ -1,0 +1,17 @@
+id: node.field_parent_section
+status: true
+langcode: en
+name: field_parent_section
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: entity_reference
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+dependencies:
+  module:
+    - entity_reference
+    - node

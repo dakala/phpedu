@@ -1,0 +1,23 @@
+id: node.pe_section.field_parent_section
+status: true
+langcode: en
+field_name: field_parent_section
+entity_type: node
+bundle: pe_section
+label: 'Parent section'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  handler: default
+  handler_settings:
+    target_bundles:
+      pe_section: pe_section
+    sort:
+      field: _none
+dependencies:
+  entity:
+    - field.field.node.field_parent_section
+    - node.type.pe_section
+field_type: entity_reference

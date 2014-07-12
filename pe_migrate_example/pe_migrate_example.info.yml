@@ -1,0 +1,8 @@
+name: Demo phpEdu
+description: Demo site showcasing features of the phpEdu distribution.
+package: Example modules
+type: module
+core: 8.x
+dependencies:
+  - migrate
+  - pe_edu

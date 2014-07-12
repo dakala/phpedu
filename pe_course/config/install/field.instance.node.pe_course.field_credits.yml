@@ -1,0 +1,21 @@
+id: node.pe_course.field_credits
+status: true
+langcode: en
+field_name: field_credits
+entity_type: node
+bundle: pe_course
+label: Credits
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+dependencies:
+  entity:
+    - field.field.node.field_credits
+    - node.type.pe_course
+field_type: integer

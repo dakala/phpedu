@@ -1,0 +1,19 @@
+id: node.pe_edu.field_url
+status: true
+langcode: en
+field_name: field_url
+entity_type: node
+bundle: pe_edu
+label: URL
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  link_type: '17'
+  title: '1'
+dependencies:
+  entity:
+    - field.field.node.field_url
+    - node.type.pe_edu
+field_type: link

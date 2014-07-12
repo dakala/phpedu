@@ -1,0 +1,15 @@
+id: pe_migrate_example_user_role
+source:
+  plugin: pe_migrate_example_user_role
+destination:
+  plugin: entity:user_role
+process:
+  id:
+    -
+      plugin: machine_name
+      source: group
+    -
+      plugin: dedupe_entity
+      entity_type: user_role
+      field: id
+  label: group

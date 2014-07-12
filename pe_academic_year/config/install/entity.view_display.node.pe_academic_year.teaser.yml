@@ -1,0 +1,36 @@
+id: node.pe_academic_year.teaser
+targetEntityType: node
+bundle: pe_academic_year
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    weight: 0
+    settings:
+      trim_length: 600
+    label: hidden
+  field_start_date:
+    type: datetime_default
+    weight: 1
+    settings:
+      format_type: medium
+    label: above
+  field_end_date:
+    type: datetime_default
+    weight: 2
+    settings:
+      format_type: medium
+    label: above
+hidden:
+  langcode: true
+status: true
+dependencies:
+  entity:
+    - entity.view_mode.node.teaser
+    - field.instance.node.pe_academic_year.body
+    - field.instance.node.pe_academic_year.field_end_date
+    - field.instance.node.pe_academic_year.field_start_date
+    - node.type.pe_academic_year
+  module:
+    - datetime
+    - text

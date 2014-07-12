@@ -1,0 +1,16 @@
+id: node.pe_assignment_question.field_remarks
+uuid: 7add81cf-f8fe-414f-be00-f0a9771c3f89
+status: true
+langcode: en
+field_uuid: 8bd6e28f-e2a5-43e6-9600-dedce484a7da
+field_name: field_remarks
+entity_type: node
+bundle: pe_assignment_question
+label: Remarks
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  text_processing: '1'
+field_type: text_long

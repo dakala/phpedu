@@ -1,0 +1,17 @@
+id: node.field_vat_id
+status: true
+langcode: en
+name: field_vat_id
+entity_type: node
+type: text
+settings:
+  max_length: 255
+module: text
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+dependencies:
+  module:
+    - node
+    - text

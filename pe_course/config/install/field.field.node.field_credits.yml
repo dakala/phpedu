@@ -1,0 +1,16 @@
+id: node.field_credits
+status: true
+langcode: en
+name: field_credits
+entity_type: node
+type: integer
+settings:
+  unsigned: ''
+module: Core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+dependencies:
+  module:
+    - node

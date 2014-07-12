@@ -1,0 +1,111 @@
+id: node.pe_edu.default
+targetEntityType: node
+bundle: pe_edu
+mode: default
+content:
+  field_legal_name:
+    type: text_default
+    weight: 0
+    settings: {  }
+    label: above
+  field_image:
+    type: image
+    weight: 1
+    settings:
+      image_style: large
+      image_link: content
+    label: above
+  body:
+    type: text_default
+    weight: 2
+    settings: {  }
+    label: hidden
+  field_institution_type:
+    type: taxonomy_term_reference_plain
+    weight: 3
+    settings: {  }
+    label: above
+  field_founding_date:
+    type: datetime_default
+    weight: 4
+    settings:
+      format_type: medium
+    label: above
+  field_defunct_date:
+    type: datetime_default
+    weight: 5
+    settings:
+      format_type: medium
+    label: above
+  field_address:
+    type: simpleaddress_default
+    weight: 6
+    settings: {  }
+    label: above
+  field_url:
+    type: link
+    weight: 7
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    label: above
+  field_email:
+    type: string
+    weight: 8
+    settings: {  }
+    label: above
+  field_telephone_number:
+    type: string
+    weight: 9
+    settings: {  }
+    label: above
+  field_fax_number:
+    type: string
+    weight: 10
+    settings: {  }
+    label: above
+  field_duns_number:
+    type: text_default
+    weight: 11
+    settings: {  }
+    label: above
+  field_vat_id:
+    type: text_default
+    weight: 12
+    settings: {  }
+    label: above
+  field_tax_id:
+    type: text_default
+    weight: 13
+    settings: {  }
+    label: above
+hidden:
+  langcode: true
+status: true
+dependencies:
+  entity:
+    - field.instance.node.pe_edu.body
+    - field.instance.node.pe_edu.field_address
+    - field.instance.node.pe_edu.field_defunct_date
+    - field.instance.node.pe_edu.field_duns_number
+    - field.instance.node.pe_edu.field_email
+    - field.instance.node.pe_edu.field_fax_number
+    - field.instance.node.pe_edu.field_founding_date
+    - field.instance.node.pe_edu.field_image
+    - field.instance.node.pe_edu.field_institution_type
+    - field.instance.node.pe_edu.field_legal_name
+    - field.instance.node.pe_edu.field_tax_id
+    - field.instance.node.pe_edu.field_telephone_number
+    - field.instance.node.pe_edu.field_url
+    - field.instance.node.pe_edu.field_vat_id
+    - node.type.pe_edu
+  module:
+    - datetime
+    - image
+    - link
+    - simpleaddress
+    - taxonomy
+    - text

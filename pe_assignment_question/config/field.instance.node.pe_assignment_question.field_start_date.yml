@@ -1,0 +1,15 @@
+id: node.pe_assignment_question.field_start_date
+uuid: 8714fc6a-8e6b-4160-8105-5bfb6810c774
+status: true
+langcode: en
+field_uuid: 6c238b92-e25c-4019-901e-30729f274a0f
+field_name: field_start_date
+entity_type: node
+bundle: pe_assignment_question
+label: 'Start date'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings: {  }
+field_type: datetime

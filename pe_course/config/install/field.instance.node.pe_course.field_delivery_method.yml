@@ -1,0 +1,18 @@
+id: node.pe_course.field_delivery_method
+status: true
+langcode: en
+field_name: field_delivery_method
+entity_type: node
+bundle: pe_course
+label: 'Delivery method'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  handler: default
+dependencies:
+  entity:
+    - field.field.node.field_delivery_method
+    - node.type.pe_course
+field_type: taxonomy_term_reference

@@ -1,0 +1,6 @@
+id: student
+label: Student
+weight: 3
+permissions: {  }
+status: true
+langcode: en

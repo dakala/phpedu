@@ -1,0 +1,17 @@
+id: node.pe_section.field_address
+status: true
+langcode: en
+field_name: field_address
+entity_type: node
+bundle: pe_section
+label: Address
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings: {  }
+dependencies:
+  entity:
+    - field.field.node.field_address
+    - node.type.pe_section
+field_type: simpleaddress

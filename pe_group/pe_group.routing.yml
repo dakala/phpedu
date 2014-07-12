@@ -1,0 +1,77 @@
+group.group_admin_list:
+  path: '/admin/people/groups'
+  defaults:
+    _content: '\Drupal\pe_group\Controller\GroupController::groupIndex'
+    _title: 'Groups'
+  requirements:
+    _permission: 'administer user groups'
+
+group.autocomplete:
+  path: '/group/autocomplete'
+  defaults:
+    _controller: '\Drupal\pe_group\Controller\GroupAutocompleteController::autocompleteGroup'
+  requirements:
+    _permission: 'administer user groups'
+
+group.index:
+  path: '/group'
+  defaults:
+    _content: '\Drupal\pe_group\Controller\GroupController::groupIndex'
+    _title: 'Groups'
+  requirements:
+    _permission: 'access content'
+
+group.page:
+  path: '/group/{taxonomy_term}'
+  defaults:
+    _content: '\Drupal\pe_group\Controller\GroupController::groupPage'
+    _title: 'Group'
+    _title_callback: '\Drupal\pe_group\Controller\GroupController::termTitle'
+  requirements:
+    _permission: 'access content'
+
+group.edit:
+  path: '/group/{taxonomy_term}/edit'
+  defaults:
+    _entity_form: 'taxonomy_term.default'
+    _title: 'Edit'
+  requirements:
+    _entity_access: 'taxonomy_term.update'
+
+group.members_list:
+  path: '/group/{taxonomy_term}/people/list'
+  defaults:
+    _content: '\Drupal\pe_group\Controller\GroupController::groupMembers'
+    _title: 'Members list'
+    _title_callback: '\Drupal\pe_group\Controller\GroupController::termTitle'
+  requirements:
+    _permission: 'access content'
+
+group.members_add:
+  path: '/group/{taxonomy_term}/people/add'
+  defaults:
+    _content: '\Drupal\pe_group\Controller\GroupController::groupPage'
+    _title: 'Add members'
+    _title_callback: '\Drupal\pe_group\Controller\GroupController::termTitle'
+  requirements:
+    _permission: 'access content'
+
+group.posts:
+  path: '/group/{taxonomy_term}/posts'
+  requirements:
+    _permission: 'access content'
+
+group.role_list:
+  path: '/admin/people/groups/roles'
+  defaults:
+    _entity_list: 'group_role'
+    _title: 'Group Roles'
+  requirements:
+    _permission: 'administer permissions'
+
+group.role_edit:
+  path: '/admin/people/groups/roles/manage/{group_role}'
+  defaults:
+    _entity_form: group_role.default
+  requirements:
+    _entity_access: group_role.update

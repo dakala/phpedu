@@ -1,0 +1,9 @@
+services:
+
+  group.manager:
+    class: Drupal\pe_group\GroupManager
+    arguments: ['@database', '@entity.manager', '@string_translation', '@config.factory']
+
+  group.autocomplete:
+     class: Drupal\pe_group\GroupAutocomplete
+     arguments: ['@database', '@config.factory', '@entity.manager', '@entity.query']

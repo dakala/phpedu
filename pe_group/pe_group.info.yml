@@ -1,0 +1,8 @@
+name: Group
+type: module
+description: 'Manager user groups.'
+package: phpEdu
+version: VERSION
+core: 8.x
+dependencies:
+  - taxonomy

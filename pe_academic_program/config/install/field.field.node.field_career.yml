@@ -1,0 +1,16 @@
+id: node.field_career
+status: true
+langcode: en
+name: field_career
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+dependencies:
+  module:
+    - node
+    - text

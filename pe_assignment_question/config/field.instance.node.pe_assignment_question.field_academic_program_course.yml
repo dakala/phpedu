@@ -1,0 +1,21 @@
+id: node.pe_assignment_question.field_academic_program_course
+uuid: aad5da30-f68d-4553-9b03-3a74496a561f
+status: true
+langcode: en
+field_uuid: 68cbaa24-9c0a-4f14-9300-ee5d99f9b538
+field_name: field_academic_program_course
+entity_type: node
+bundle: pe_assignment_question
+label: Course
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  handler: default
+  handler_settings:
+    target_bundles:
+      pe_academic_program_course: pe_academic_program_course
+    sort:
+      field: _none
+field_type: entity_reference

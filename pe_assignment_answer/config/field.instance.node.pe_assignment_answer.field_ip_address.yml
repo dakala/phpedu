@@ -1,0 +1,16 @@
+id: node.pe_assignment_answer.field_ip_address
+uuid: 7c626b0e-7594-4e3a-a62a-427ddab84c4f
+status: true
+langcode: en
+field_uuid: 3970ee98-33e1-457b-bb00-d34427c09b62
+field_name: field_ip_address
+entity_type: node
+bundle: pe_assignment_answer
+label: 'IP address'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  text_processing: '0'
+field_type: text

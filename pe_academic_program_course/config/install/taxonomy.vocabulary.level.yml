@@ -1,0 +1,8 @@
+vid: level
+name: Level
+description: 'Levels of study.'
+hierarchy: 0
+weight: 0
+status: true
+langcode: en
+dependencies: {  }

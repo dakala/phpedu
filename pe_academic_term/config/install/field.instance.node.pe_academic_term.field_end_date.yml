@@ -1,0 +1,17 @@
+id: node.pe_academic_term.field_end_date
+status: true
+langcode: en
+field_name: field_end_date
+entity_type: node
+bundle: pe_academic_term
+label: 'End date'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings: {  }
+dependencies:
+  entity:
+    - field.field.node.field_end_date
+    - node.type.pe_academic_term
+field_type: datetime

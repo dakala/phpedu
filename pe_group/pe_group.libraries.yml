@@ -1,0 +1,8 @@
+drupal.groups-list:
+  version: VERSION
+  js:
+    js/groups.list.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal

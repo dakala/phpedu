@@ -1,0 +1,6 @@
+id: alumnus
+label: Alumnus
+weight: 6
+permissions: {  }
+status: true
+langcode: en

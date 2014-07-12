@@ -1,0 +1,6 @@
+id: parent
+label: Parent
+weight: 5
+permissions: {  }
+status: true
+langcode: en

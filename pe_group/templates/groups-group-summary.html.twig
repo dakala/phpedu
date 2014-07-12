@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ *
+ */
+#}
+<div class="groups-group-summary">
+    {% if administrators %}
+        <div><strong>Admin: </strong> {{ administrators }}</div>
+    {% endif %}
+    {% if managers %}
+        <div><strong>Manager(s): </strong>{{ managers }}</div>
+    {% endif %}
+    {% if leaders %}
+        <div><strong>Leader(s): </strong>{{ leaders }}</div>
+    {% endif %}
+
+    <div><strong>Total members:</strong> {{ total_members }}</div>
+    <div><strong>Total posts:</strong> {{ total_posts }}</div>
+</div>

@@ -1,0 +1,8 @@
+vid: study_mode
+name: 'Study mode'
+description: 'Modes of study.'
+hierarchy: 0
+weight: 0
+status: true
+langcode: en
+dependencies: {  }

@@ -1,0 +1,23 @@
+id: node.pe_course.field_course_book
+status: true
+langcode: en
+field_name: field_course_book
+entity_type: node
+bundle: pe_course
+label: 'Course book'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  handler: default
+  handler_settings:
+    target_bundles:
+      book: book
+    sort:
+      field: _none
+dependencies:
+  entity:
+    - field.field.node.field_course_book
+    - node.type.pe_course
+field_type: entity_reference

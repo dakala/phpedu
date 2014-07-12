@@ -1,0 +1,17 @@
+id: node.field_allow_uploads
+uuid: 09a47f81-26c8-4328-8d00-db4fbb0cea0b
+status: true
+langcode: en
+name: field_allow_uploads
+entity_type: node
+type: list_boolean
+settings:
+  allowed_values:
+    - ''
+    - ''
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }

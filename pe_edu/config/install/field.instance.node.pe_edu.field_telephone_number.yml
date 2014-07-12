@@ -1,0 +1,17 @@
+id: node.pe_edu.field_telephone_number
+status: true
+langcode: en
+field_name: field_telephone_number
+entity_type: node
+bundle: pe_edu
+label: 'Telephone number'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings: {  }
+dependencies:
+  entity:
+    - field.field.node.field_telephone_number
+    - node.type.pe_edu
+field_type: telephone

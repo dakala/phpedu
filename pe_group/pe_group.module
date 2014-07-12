@@ -1,0 +1,935 @@
+<?php
+
+/*
+ * @file
+ *
+ */
+
+use Drupal\Core\Language\Language;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Entity\Entity;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\user\UserInterface;
+use Drupal\pe_group\RoleInterface;
+use Drupal\pe_group\GroupUserInterface;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * @todo:
+ *
+ * 1. Views:
+ * List of groups <groups>
+ *
+ * Name <Description>/Type/*Members/*Posts/Manager/Operations
+ *
+ * Group > tabs:
+ *    - Posts <groups/x/posts>
+ *    - Members <groups/x/members>
+ *    - Add Members <groups/x/members/add>
+ *
+ * LIST
+ * POSTS / PEOPLE / ADD PEOPLE
+ *
+ * 2. Fields
+ * Post count
+ * Member count
+ *
+ * 3. Filters <taxonomy>
+ * Role*
+ * Section
+ *
+ * student:
+ * Program
+ * Level
+ *
+ * staff:
+ * Position
+ *
+ * group membership
+ *
+ * 5. Add users to roles
+ * 6. load group_roles with user
+ *
+ */
+
+/**
+ * Denotes that a vocabulary is used for groups.
+ */
+const IS_GROUP_VOCABULARY = 1;
+
+/**
+ * Denotes that a vocabulary is not used for groups.
+ */
+const IS_NOT_GROUP_VOCABULARY = 0;
+
+/**
+ * Maximum number of groups the actions dropdown when managing nodes or users.
+ */
+const MAXIMUM_GROUPS_ACTIONS = 2;
+
+/**
+ * Role ID for regular members of a group; should match what's in the "group_role" table.
+ */
+const GROUP_MEMBER_RID = 'member';
+
+/**
+ * Role ID for administrators of a group; should match what's in the "group_role" table.
+ */
+const GROUP_ADMINISTRATOR_RID = 'administrator';
+
+/**
+ * Role ID for secretaries of a group; should match what's in the "group_role" table.
+ */
+const GROUP_SECRETARY_RID = 'secretary';
+
+/**
+ * Role ID for leaders of a group; should match what's in the "group_role" table.
+ */
+const GROUP_LEADER_RID = 'leader';
+
+/**
+ * Implement hook_help().
+ */
+function pe_group_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.group':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Group module allows users to register, log in, and log out. It also allows users with proper permissions to manage user roles and permissions. For more information, see the <a href="!user_docs">online documentation for the User module</a>.', array('!user_docs' => 'https://drupal.org/documentation/modules/user')) . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dl>';
+      $output .= '<dt>' . t('Creating and managing groups') . '</dt>';
+      $output .= '<dd>' . t('Through the <a href="!people">People administration page</a> you can create and cancel user accounts and assign users to roles. By editing one particular user you change the username, e-mail address, and password.', array('!people' => \Drupal::url('user.admin_account'))) . '</dd>';
+      $output .= '<dt>' . t('Group User roles') . '</dt>';
+      $output .= '<dd>' . t('<em>Group User roles</em> are used to group and classify users; each user can be assigned one or more roles. Typically there are three pre-defined roles: <em>Anonymous user</em> (users that are not logged in), <em>Authenticated user</em> (users that are registered and logged in), and <em>Administrator</em> (users that are registered, logged in as administrator). You can create additional roles on the <a href="!roles">Roles page</a>.', array('!roles' => \Drupal::url('user.role_list'))) . '</dd>';
+      $output .= '</dl>';
+      return $output;
+
+    case 'group.role_list':
+      $output = '<p>' . t('Group Roles allow you to fine tune the security and administration of user groups. A group role, like the system role, defines a group of users that have certain privileges within a specific group only. Examples of group roles include: member, leader, secretary, administrator and so on. In this area you will define the names and order of the group roles on your site. It is recommended to order your roles from least permissive (member) to most permissive (administrator). To delete a group role choose "edit role".', array('@permissions' => url('admin/people/groups/permissions'))) . '</p>';
+      $output .= '<p>' . t('PhpEdu has four special group user roles:') . '</p>';
+      $output .= '<ul>';
+      $output .= '<li>' . t("Member: this role is used for most users that don't have a special role within the group and is automatically granted to all logged in users who are members of the group.") . '</li>';
+      $output .= '<li>' . t('Leader: this role is used for some members of the group who assist in the running of the group.') . '</li>';
+      $output .= '<li>' . t('Secretary: this role is granted to users who are responsible for the day-to-day running of the group e.g. department secretaries.') . '</li>';
+      $output .= '<li>' . t('Administrator: this role is granted to users who administer the group e.g. course teachers.') . '</li>';
+      $output .= '</ul>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_page_build().
+ */
+function pe_group_page_build(&$page) {
+  $page['#attached']['library'][] = 'pe_group/drupal.groups-list';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function pe_group_theme() {
+  return array(
+    'groups_group_info' => array(
+      'variables' => array('group' => NULL),
+      'template' => 'groups-group-info',
+    ),
+    'groups_group_type' => array(
+      'variables' => array('group' => NULL),
+      'template' => 'groups-group-type',
+    ),
+    'groups_group_summary' => array(
+      'variables' => array('term' => NULL),
+      'template' => 'groups-group-summary',
+    ),
+  );
+}
+
+/**
+ * Implements hook_permission().
+ */
+function pe_group_permission() {
+  return array(
+    'administer user groups' => array(
+      'title' => t('Administer user groups'),
+    ),
+  );
+
+  // add users to any groups
+  // add users to own groups
+  // add content to any groups
+  // add content to own groups
+  // create new groups
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function pe_group_form_taxonomy_vocabulary_form_alter(array &$form, array &$form_state) {
+  $groups = \Drupal::config('pe_group.settings')->get('vocabulary');
+  $vocabulary = $form_state['controller']->getEntity();
+  $is_group_vocabulary = (is_array($groups) && in_array($vocabulary->id(), $groups)) ? TRUE : FALSE;
+  if ($is_group_vocabulary) {
+    $form['help_group_vocab'] = array(
+      '#markup' => t('This is a designated group vocabulary. Some of the normal vocabulary options have been removed.'),
+      '#weight' => -1,
+    );
+    // Do not allow to change a vid of group's vocabulary.
+    $form['vid']['#disabled'] = TRUE;
+    // Group vocabulary always has single hierarchy. Groups have only one
+    // parent or no parent for root items. By default this value is 0.
+    $form['hierarchy']['#value'] = TAXONOMY_HIERARCHY_SINGLE;
+
+    // Do not allow to delete group's vocabulary.
+    $form['actions']['delete']['#access'] = FALSE;
+  }
+
+  // Position our checkbox after Description textfield.
+  $_form = $form;
+  $form = array();
+  foreach ($_form as $key => $element) {
+    $form[$key] = $_form[$key];
+    if ($key == 'description') {
+      $form['group_vocabulary'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Group vocabulary'),
+        '#description' => t('Use the terms in this vocabulary to denote groups.'),
+        '#default_value' => $is_group_vocabulary,
+      );
+    }
+  }
+
+  $form['actions']['submit']['#submit'][] = 'pe_group_taxonomy_vocabulary_form_submit';
+}
+
+/**
+ * Form submission handler for taxonomy_vocabulary_form().
+ *
+ * @param $form
+ * @param $form_state
+ */
+function pe_group_taxonomy_vocabulary_form_submit($form, &$form_state) {
+  $vocabulary = $form_state['controller']->getEntity();
+  $groups = \Drupal::config('pe_group.settings')->get('vocabulary');
+  if (!is_array($groups)) {
+    $groups = array();
+  }
+  // new group vocabulary
+  if (($form_state['values']['group_vocabulary'])) {
+    if (!count($groups) || (!in_array($vocabulary->id(), $groups))) {
+      $groups[] = $vocabulary->id();
+    }
+  }
+  // @todo: should this be possible at all?
+  // old group vocabulary but not any longer
+  if ((!$form_state['values']['group_vocabulary']) && count($groups) && (in_array($vocabulary->id(), $groups))) {
+    if (($key = array_search($vocabulary->id(), $groups)) !== FALSE) {
+      unset($groups[$key]);
+    }
+  }
+
+  sort($groups);
+
+  \Drupal::config('pe_group.settings')->set('vocabulary', $groups)->save();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for taxonomy_term_form().
+ */
+function pe_group_form_taxonomy_term_form_alter(&$form, &$form_state, $form_id) {
+
+}
+
+/**
+ * Implements hook_taxonomy_term_insert().
+ *
+ * When saving a group term save related actions.
+ *
+ * @param \Drupal\taxonomy\Term $term
+ *   A taxonomy term entity.
+ */
+function pe_group_taxonomy_term_insert(Drupal\taxonomy\Entity\Term $term) {
+  pe_group_taxonomy_term_insert_update($term);
+}
+
+/**
+ * Implements hook_taxonomy_term_update().
+ *
+ * @param \Drupal\taxonomy\Entity\Term $term
+ */
+function pe_group_taxonomy_term_update(Drupal\taxonomy\Entity\Term $term) {
+  pe_group_taxonomy_term_insert_update($term);
+}
+
+function pe_group_taxonomy_term_insert_update(Drupal\taxonomy\Entity\Term $term) {
+  $groups = \Drupal::config('pe_group.settings')->get('vocabulary');
+  $term_vid = $term->vid->getValue();
+  $is_group_vocabulary = (is_array($groups) && in_array($term_vid[0]['target_id'], $groups)) ? TRUE : FALSE;
+  if ($is_group_vocabulary) {
+    $machine_name = pe_group_get_machine_name($term);
+    $add_id = 'user_add_group_action.' . $machine_name;
+    if (!entity_load('action', $add_id)) {
+      $action = entity_create('action', array(
+        'id' => $add_id,
+        'type' => 'user',
+        'label' => t('Add the selected users to @label group', array('@label' => $term->label())),
+        'configuration' => array(
+          'tid' => $term->id(),
+        ),
+        'plugin' => 'user_add_group_action',
+      ));
+      $action->save();
+    }
+    $remove_id = 'user_remove_group_action.' . $machine_name;
+    if (!entity_load('action', $remove_id)) {
+      $action = entity_create('action', array(
+        'id' => $remove_id,
+        'type' => 'user',
+        'label' => t('Remove the selected users from @label group', array('@label' => $term->label())),
+        'configuration' => array(
+          'tid' => $term->id(),
+        ),
+        'plugin' => 'user_remove_group_action',
+      ));
+      $action->save();
+    }
+
+    $rids = pe_group_get_user_group_roles();
+    foreach ($rids as $rid) {
+      $role = entity_load('group_role', $rid);
+      if ($role instanceof \Drupal\pe_group\Entity\Role) {
+        $add_role_id = 'user_add_group_role_action.' . $machine_name . '.' . $rid;
+        if (!entity_load('action', $add_role_id)) {
+          $action = entity_create('action', array(
+            'id' => $add_role_id,
+            'type' => 'user',
+            'label' => t('Add the @role role for @label group to the selected users', array(
+              '@role' => $role->label(),
+              '@label' => $term->label()
+            )),
+            'configuration' => array(
+              'tid' => $term->id(),
+              'rid' => $role->id(),
+            ),
+            'plugin' => 'user_add_group_role_action',
+          ));
+          $action->save();
+        }
+        $remove_role_id = 'user_remove_group_role_action.' . $machine_name . '.' . $rid;
+        if (!entity_load('action', $remove_role_id)) {
+          $action = entity_create('action', array(
+            'id' => $remove_role_id,
+            'type' => 'user',
+            'label' => t('Remove the @role role for @label group from the selected users', array(
+              '@role' => $role->label(),
+              '@label' => $term->label()
+            )),
+            'configuration' => array(
+              'tid' => $term->id(),
+              'rid' => $role->id(),
+            ),
+            'plugin' => 'user_remove_group_role_action',
+          ));
+          $action->save();
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_taxonomy_term_delete().
+ *
+ * When deleting a group term delete related actions.
+ *
+ * @param \Drupal\taxonomy\Term $term
+ *   The taxonomy term entity that has been deleted.
+ */
+function pe_group_taxonomy_term_delete(Drupal\taxonomy\Entity\Term $term) {
+  $groups = \Drupal::config('pe_group.settings')->get('vocabulary');
+  $term_vid = $term->vid->getValue();
+  $is_group_vocabulary = (is_array($groups) && in_array($term_vid[0]['target_id'], $groups)) ? TRUE : FALSE;
+  if ($is_group_vocabulary) {
+    $actions = entity_load_multiple('action', array(
+      'user_add_group_action.' . $term->machine_name,
+      'user_remove_group_action.' . $term->machine_name,
+    ));
+    foreach ($actions as $action) {
+      $action->delete();
+    }
+  }
+  // Delete machine name
+  db_delete('taxonomy_term_machine_name')
+    ->condition('tid', $term->id())
+    ->execute();
+}
+
+/**
+ * Implements hook_form_views_exposed_form_alter().
+ *
+ * @param $form
+ * @param $form_state
+ */
+function pe_group_form_views_exposed_form_alter(&$form, &$form_state) {
+  switch ($form['#id']) {
+    case 'views-exposed-form-user-admin-people-page-1':
+      $form['group'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Group'),
+        '#default_value' => '',
+        '#size' => 40,
+        '#weight' => 0,
+        '#autocomplete_route_name' => 'group.autocomplete',
+      );
+      break;
+  }
+}
+
+/**
+ * Implements hook_form_views_form_FORM_ID_alter().
+ *
+ * @param array $form
+ * @param array $form_state
+ */
+function pe_group_form_views_form_user_admin_people_page_1_alter(array &$form, array &$form_state) {
+  if (isset($form['header'])) {
+    $form['header']['user_bulk_form']['#attributes'] = array(
+      'class' => array(
+        'views-exposed-form',
+        'clearfix'
+      )
+    );
+
+    $form['header']['user_bulk_form']['action']['#prefix'] = '<div id="actions-select-options-update">';
+    $form['header']['user_bulk_form']['action']['#suffix'] = '</div>';
+    $form['header']['user_bulk_form']['action']['#options'] = pe_group_actions_select_options_update($form, $form_state);
+
+    $form['header']['user_bulk_form']['action_user_group'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Group'),
+      '#size' => 40,
+      '#placeholder' => t('Limit actions to this group.'),
+      '#autocomplete_route_name' => 'group.autocomplete',
+      '#ajax' => array(
+        'callback' => 'pe_group_update_group_actions',
+        'wrapper' => 'actions-select-options-update',
+      ),
+    );
+  }
+}
+
+/**
+ * Get actions to display in the select dropdown if there are too many groups.
+ *
+ * @param $form
+ * @param $form_state
+ *
+ * @return mixed
+ */
+// @todo: debug
+function pe_group_actions_select_options_update($form, $form_state) {
+  $actions = $form['header']['user_bulk_form']['action']['#options'];
+  $groups = \Drupal::service('group.manager')->getAllGroups();
+  if ((count($groups) > MAXIMUM_GROUPS_ACTIONS) && isset($form_state['values']['action_user_group'])) {
+    $tid = $form_state['values']['action_user_group'];
+    // remove all actions except group actions
+    $_actions = $actions;
+    $actions = array();
+    $group_actions = pe_group_get_group_actions($tid);
+    if (count($group_actions)) {
+      foreach ($_actions as $id => $action) {
+        if (in_array($id, $group_actions)) {
+          $actions[$id] = $action;
+        }
+      }
+    }
+  }
+  else {
+    // remove all group actions.
+    foreach ($actions as $id => $action) {
+      if (strpos($id, 'user_add_group_') !== FALSE || strpos($id, 'user_remove_group_') !== FALSE) {
+        unset($actions[$id]);
+      }
+    }
+  }
+  if (!count($actions)) {
+    drupal_set_message(t('No actions for @tid group', array('@tid' => $tid)), 'error');
+  }
+  return $actions;
+}
+
+/**
+ * AJAX callback function to update the action select options.
+ *
+ * @param array $form
+ * @param array $form_state
+ *
+ * @return mixed
+ */
+function pe_group_update_group_actions(array &$form, array &$form_state) {
+  return $form['header']['user_bulk_form']['action'];
+}
+
+/**
+ * Implements hook_taxonomy_term_load().
+ *
+ * @param array $terms
+ */
+function pe_group_taxonomy_term_load(array $terms) {
+  $result = db_select('taxonomy_term_machine_name', 'm')
+    ->fields('m', array('tid', 'machine_name'))
+    ->condition('m.tid', array_keys($terms), 'IN')
+    ->execute();
+  foreach ($result as $record) {
+    $terms[$record->tid]->machine_name = $record->machine_name;
+  }
+}
+
+/**
+ * Implements hook_views_query_alter().
+ *
+ * @param ViewExecutable $view
+ * @param QueryPluginBase $query
+ */
+function pe_group_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  switch ($view->getPath()) {
+    case 'admin/people':
+      if (count($view->exposed_input)) {
+        $group = $view->exposed_input['group'];
+        if ($group) {
+          $view->pe_group_results = FALSE;
+          $uids = getGroupEntityIds($group, 'user');
+          if (count($uids)) {
+            $view->pe_group_results = TRUE;
+            foreach ($query->where as &$condition_group) {
+              $condition_group['conditions'][] = array(
+                'field' => 'users.uid',
+                'value' => $uids,
+                'operator' => 'IN',
+              );
+            }
+          }
+        }
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ *
+ * @param ViewExecutable $view
+ */
+function pe_group_views_pre_render(ViewExecutable $view) {
+  if (isset($view->pe_group_results) && !$view->pe_group_results) {
+    $view->result = array();
+    $view->total_rows = 0;
+  }
+}
+
+/**
+ * Get entity ids of entities tagged with a given term.
+ *
+ * @param object $term
+ *    Either an instance of a standard object or Drupal\taxonomy\Entity\Term,
+ * @param string $entity_type
+ *    node | user
+ *
+ * @return array
+ */
+function getGroupEntityIds($term, $entity_type = 'node') {
+  if (!$term instanceof \Drupal\taxonomy\Entity\Term) {
+    $terms = taxonomy_term_load_multiple_by_name($term);
+    $term = reset($terms);
+  }
+  $entity_ids = array();
+  $members = \Drupal::service('group.manager')
+    ->getTermEntities($term, $entity_type);
+  if (count($members)) {
+    foreach ($members as $member) {
+      $entity_ids[] = $member->entity_id;
+    }
+  }
+  return $entity_ids;
+}
+
+/**
+ * Get array of all groups keyed by
+ *
+ * @return array
+ */
+function pe_group_get_groups() {
+  $groups = \Drupal::service('group.manager')->getAllGroups();
+  $terms = array();
+  foreach ($groups as $group) {
+    $terms[$group->tid] = $group->label();
+  }
+  return $terms;
+}
+
+/**
+ * Get machine name for term, create if one doesn't exist.
+ *
+ * @param \Drupal\taxonomy\Entity\Term $term
+ *
+ * @return mixed|string
+ */
+function pe_group_get_machine_name(\Drupal\taxonomy\Entity\Term $term) {
+  $machine_name = db_select('taxonomy_term_machine_name', 'm')
+    ->fields('m', array('machine_name'))
+    ->condition('tid', $term->id())
+    ->execute()->fetchField();
+  if (!drupal_strlen($machine_name)) {
+    $machine_name = getMachineNameSuggestion($term);
+    // save it
+    db_insert('taxonomy_term_machine_name')
+      ->fields(array(
+        'tid' => $term->id(),
+        'machine_name' => $machine_name,
+      ))->execute();
+  }
+  return $machine_name;
+}
+
+/**
+ * @see \Drupal\system\MachineNameController::transliterate()
+ *
+ * @param \Drupal\taxonomy\Entity\Term $term
+ *
+ * @return mixed|string
+ */
+function getMachineNameSuggestion(\Drupal\taxonomy\Entity\Term $term) {
+  $transliteration_service = \Drupal::transliteration();
+  $transliterated = $transliteration_service->transliterate(str_replace(array(
+    '(',
+    ')'
+  ), '', $term->label()), Language::LANGCODE_DEFAULT, '_');
+  $replace_pattern = '[^a-z0-9_.]+';
+  $transliterated = Unicode::strtolower($transliterated);
+  if (isset($replace_pattern)) {
+    $transliterated = preg_replace('@' . $replace_pattern . '@', '_', $transliterated);
+  }
+  return $transliterated;
+}
+
+/**
+ * Implements hook_node_access().
+ *
+ * Check that the current node being viewed is posted to a group. If true, check
+ * that the user is allowed to view it.
+ *
+ * @param \Drupal\node\NodeInterface $node
+ * @param $op
+ * @param $account
+ * @param $langcode
+ *
+ * @return bool|null
+ */
+function pe_group_node_access(\Drupal\node\NodeInterface $node, $op, $account, $langcode) {
+  $userGroups = \Drupal::service('group.manager')
+    ->getGroupEntityReferenceTids(entity_load('user', $account->id()));
+  $nodeGroups = \Drupal::service('group.manager')
+    ->getGroupEntityReferenceTids($node);
+
+  if ($nodeGroups) {
+
+  }
+
+  switch ($op) {
+    case 'edit':
+      // @todo:
+      break;
+    case 'view':
+
+      if ($nodeGroups) {
+        return (count($userGroups) && count(array_intersect($nodeGroups, $userGroups))) ?
+          NODE_ACCESS_ALLOW : NODE_ACCESS_DENY;
+      }
+      break;
+  }
+
+  return NODE_ACCESS_IGNORE;
+}
+
+/**
+ * Array sorting callback; sorts groups by their name.
+ */
+function pe_group_sort_modules_by_label($a, $b) {
+  return strcasecmp($a->label(), $b->label());
+}
+
+/**
+ * Array sorting callback; sorts groups by their type.
+ */
+function pe_group_sort_modules_by_type($a, $b) {
+  return strcasecmp($a->vocabulary, $b->vocabulary);
+}
+
+function template_preprocess_groups_group_info(&$variables) {
+  $variables['name'] = $variables['group']->label();
+  $variables['link'] = url("group/" . $variables['group']->id());
+  $variables['description'] = $variables['group']->description->value;
+}
+
+function template_preprocess_groups_group_type(&$variables) {
+  $variables['type'] = $variables['group']->vocabulary;
+}
+
+/**
+ * Implements hook_entity_bundle_info_alter().
+ */
+function pe_group_entity_bundle_info_alter(&$bundles) {
+  // Take over URI construction for taxonomy terms that are groups.
+  if ($vids = \Drupal::config('pe_group.settings')->get('vocabulary')) {
+    foreach ($vids as $vid) {
+      if (isset($bundles['taxonomy_term'][$vid])) {
+        $bundles['taxonomy_term'][$vid]['uri_callback'] = 'pe_group_term_uri';
+      }
+    }
+  }
+}
+
+/**
+ * Entity URI callback.
+ */
+function pe_group_term_uri($term) {
+  return array(
+    'route_name' => 'group.page',
+    'route_parameters' => array(
+      'taxonomy_term' => $term->id(),
+    ),
+  );
+}
+
+function pe_group_preprocess_taxonomy_term(&$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  $variables['term'] = $variables['elements']['#taxonomy_term'];
+  /** @var \Drupal\taxonomy\TermInterface $term */
+  $term = $variables['term'];
+
+//  echo '<pre>'; var_dump($term); echo '</pre>';
+
+  $variables['url'] = $term->url();
+  // We use name here because that is what appears in the UI.
+  $variables['name'] = check_plain($term->label());
+  $variables['page'] = $variables['view_mode'] == 'full' && taxonomy_term_is_page($term);
+
+  // Helpful $content variable for templates.
+  $variables['content'] = array();
+  foreach (element_children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+
+  // Gather classes, and clean up name so there are no underscores.
+  $variables['attributes']['class'][] = 'taxonomy-term';
+  $vocabulary_name_css = str_replace('_', '-', $term->bundle());
+  $variables['attributes']['class'][] = 'vocabulary-' . $vocabulary_name_css;
+}
+
+function pe_group_preprocess_groups_group_summary(&$variables) {
+  /** @var \Drupal\taxonomy\TermInterface $term */
+  $term = $variables['term'];
+  $variables['total_posts'] = \Drupal::service('group.manager')
+    ->countTermEntities($term, 'node');
+  $variables['total_members'] = \Drupal::service('group.manager')
+    ->countTermEntities($term, 'user');
+
+  $officers = \Drupal::service('group.manager')->getGroupOfficers($term);
+
+  $variables['administrators'] = isset($officers['administrator']) ? implode(', ', $officers['administrator']) : '';
+  $variables['managers'] = isset($officers['manager']) ? implode(', ', $officers['manager']) : '';
+  $variables['leaders'] = isset($officers['leader']) ? implode(', ', $officers['leader']) : '';
+}
+
+/**
+ * Retrieve an array of roles matching specified conditions.
+ *
+ * @param $membersonly
+ *   Set this to TRUE to exclude the 'anonymous' role.
+ * @param $permission
+ *   A string containing a permission. If set, only roles containing that
+ *   permission are returned.
+ *
+ * @return
+ *   An associative array with the role id as the key and the role name as
+ *   value.
+ */
+function group_role_names($membersonly = FALSE, $permission = NULL) {
+  return array_map(function ($item) {
+    return $item->label();
+  }, group_roles($membersonly, $permission));
+}
+
+/**
+ * Retrieve an array of roles matching specified conditions.
+ *
+ * @param $membersonly
+ *   Set this to TRUE to exclude the 'anonymous' role.
+ * @param $permission
+ *   A string containing a permission. If set, only roles containing that
+ *   permission are returned.
+ *
+ * @return
+ *   An associative array with the role id as the key and the role object as
+ *   value.
+ */
+function group_roles($membersonly = FALSE, $permission = NULL) {
+  $user_roles = & drupal_static(__FUNCTION__);
+
+  // Do not cache roles for specific permissions. This data is not requested
+  // frequently enough to justify the additional memory use.
+  if (empty($permission)) {
+    $cid = $membersonly ? DRUPAL_AUTHENTICATED_RID : DRUPAL_ANONYMOUS_RID;
+    if (isset($user_roles[$cid])) {
+      return $user_roles[$cid];
+    }
+  }
+
+  $roles = entity_load_multiple('group_role');
+  if ($membersonly) {
+    unset($roles[DRUPAL_ANONYMOUS_RID]);
+  }
+
+  if (!empty($permission)) {
+    $roles = array_filter($roles, function ($role) use ($permission) {
+      return $role->hasPermission($permission);
+    });
+  }
+
+  if (empty($permission)) {
+    $user_roles[$cid] = $roles;
+  }
+
+  return $roles;
+}
+
+/**
+ * Implements hook_group_role_insert().
+ */
+function pe_group_group_role_insert(RoleInterface $role) {
+  // Ignore the authenticated and anonymous roles or the role is being synced.
+  if (in_array($role->id(), array(GROUP_MEMBER_RID)) || $role->isSyncing()) {
+    return;
+  }
+
+  $add_id = 'user_add_group_role_action.' . $role->id();
+  if (!entity_load('action', $add_id)) {
+    $action = entity_create('action', array(
+      'id' => $add_id,
+      'type' => 'user',
+      'label' => t('Add the @label group role to the selected users', array('@label' => $role->label())),
+      'configuration' => array(
+        'rid' => $role->id(),
+      ),
+      'plugin' => 'user_add_group_role_action',
+    ));
+    $action->save();
+  }
+  $remove_id = 'user_remove_group_role_action.' . $role->id();
+  if (!entity_load('action', $remove_id)) {
+    $action = entity_create('action', array(
+      'id' => $remove_id,
+      'type' => 'user',
+      'label' => t('Remove the @label group role from the selected users', array('@label' => $role->label())),
+      'configuration' => array(
+        'rid' => $role->id(),
+      ),
+      'plugin' => 'user_remove_group_role_action',
+    ));
+    $action->save();
+  }
+}
+
+/**
+ * Implements hook_user_role_delete().
+ */
+function pe_group_user_group_role_delete(RoleInterface $role) {
+  // Ignore the authenticated and anonymous roles or the role is being synced.
+  if (in_array($role->id(), array(GROUP_MEMBER_RID)) || $role->isSyncing()) {
+    return;
+  }
+
+  $actions = entity_load_multiple('action', array(
+    'user_add_group_role_action.' . $role->id(),
+    'user_remove_group_role_action.' . $role->id(),
+  ));
+  foreach ($actions as $action) {
+    $action->delete();
+  }
+}
+
+/**
+ * Implements hook_user_load().
+ */
+function pe_group_user_load(array $users) {
+  \Drupal::service('group.manager')->getGroupRolesForUsers($users);
+}
+
+function pe_group_get_user_group_roles($member = FALSE) {
+  $groups = array(
+    GROUP_ADMINISTRATOR_RID,
+    GROUP_SECRETARY_RID,
+    GROUP_LEADER_RID
+  );
+  if ($member) {
+    $groups[] = GROUP_MEMBER_RID;
+  }
+  return $groups;
+}
+
+
+function pe_group_get_group_actions($tid) {
+  $actions = array();
+  $terms = taxonomy_term_load_multiple_by_name($tid);
+  $term = reset($terms);
+  $add_id = 'user_add_group_action.' . $term->machine_name;
+  if (entity_load('action', $add_id)) {
+    $actions[] = $add_id;
+    $actions[] = 'user_remove_group_action.' . $term->machine_name;
+  }
+
+  $rids = pe_group_get_user_group_roles();
+  foreach ($rids as $rid) {
+    $role = entity_load('group_role', $rid);
+    if ($role instanceof \Drupal\pe_group\Entity\Role) {
+      $add_role_id = 'user_add_group_role_action.' . $term->machine_name . '.' . $role->id();
+      if (entity_load('action', $add_role_id)) {
+        $actions[] = $add_role_id;
+        $actions[] = 'user_remove_group_role_action.' . $term->machine_name . '.' . $role->id();
+      }
+    }
+  }
+
+  return $actions;
+}
+
+
+//function pe_group_get_term_children($tid, $depth) {
+//  $tids = array();
+//  $term = entity_load('taxonomy_term', $tid);
+//  if ($term instanceof Term) {
+//    $children = taxonomy_get_tree($term->getVocabularyId(), $term->id(), $depth);
+//    foreach ($children as $child) {
+//      $tids[] = (int) $child->tid;
+//    }
+//  }
+//  return $tids;
+//}
+
+
+//function pe_group_get_term_parents($tid, $depth) {
+//  $tids = array();
+//  $parents = taxonomy_term_load_parents_all($tid);
+//  // first element is the searched term.
+//  if ((!empty($parents)) && (count($parents) > 1)) {
+//    array_shift($parents);
+//    for ($i = 0; $i < $depth; $i++) {
+//      $parent = array_shift($parents);
+//      $tids[] = (int) $parent->id();
+//    }
+//  }
+//  return $tids;
+//}

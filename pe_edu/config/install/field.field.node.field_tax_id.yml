@@ -1,0 +1,17 @@
+id: node.field_tax_id
+status: true
+langcode: en
+name: field_tax_id
+entity_type: node
+type: text
+settings:
+  max_length: 255
+module: text
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+dependencies:
+  module:
+    - node
+    - text

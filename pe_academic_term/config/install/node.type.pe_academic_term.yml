@@ -1,0 +1,18 @@
+type: pe_academic_term
+name: 'Academic term'
+description: 'An academic term is the smallest sub-unit of an academic year, for example term, semester etc. Usually there are 2 or more terms in an academic year.'
+help: ''
+has_title: true
+title_label: Title
+settings:
+  node:
+    preview: 1
+    options:
+      status: true
+      promote: false
+      sticky: false
+      revision: false
+    submitted: false
+status: true
+langcode: en
+dependencies: {  }

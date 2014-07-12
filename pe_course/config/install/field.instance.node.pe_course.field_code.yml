@@ -1,0 +1,18 @@
+id: node.pe_course.field_code
+status: true
+langcode: en
+field_name: field_code
+entity_type: node
+bundle: pe_course
+label: Code
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  text_processing: 0
+dependencies:
+  entity:
+    - field.field.node.field_code
+    - node.type.pe_course
+field_type: text

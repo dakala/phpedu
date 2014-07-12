@@ -1,0 +1,128 @@
+id: node.pe_section.default
+targetEntityType: node
+bundle: pe_section
+mode: default
+content:
+  title:
+    type: string
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+  field_image:
+    type: image_image
+    weight: 1
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+  body:
+    type: text_textarea_with_summary
+    weight: 2
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+  field_parent_section:
+    type: entity_reference_autocomplete
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+  field_code:
+    type: text_textfield
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+  field_section_type:
+    type: options_select
+    weight: 5
+    settings: {  }
+  field_address:
+    type: simpleaddress_default
+    weight: 6
+    settings: {  }
+  field_section_head:
+    type: entity_reference_autocomplete
+    weight: 7
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+  field_section_head_deputy:
+    type: entity_reference_autocomplete
+    weight: 8
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+  field_section_secretary:
+    type: entity_reference_autocomplete
+    weight: 9
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+  field_founding_date:
+    type: datetime_default
+    weight: 10
+    settings: {  }
+  field_defunct_date:
+    type: datetime_default
+    weight: 11
+    settings: {  }
+  field_url:
+    type: link_default
+    weight: 12
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+  field_email:
+    type: email_default
+    weight: 13
+    settings:
+      placeholder: ''
+  field_telephone_number:
+    type: telephone_default
+    weight: 14
+    settings:
+      placeholder: ''
+  field_fax_number:
+    type: telephone_default
+    weight: 15
+    settings:
+      placeholder: ''
+hidden: {  }
+status: true
+dependencies:
+  entity:
+    - field.instance.node.pe_section.body
+    - field.instance.node.pe_section.field_address
+    - field.instance.node.pe_section.field_code
+    - field.instance.node.pe_section.field_defunct_date
+    - field.instance.node.pe_section.field_email
+    - field.instance.node.pe_section.field_fax_number
+    - field.instance.node.pe_section.field_founding_date
+    - field.instance.node.pe_section.field_image
+    - field.instance.node.pe_section.field_parent_section
+    - field.instance.node.pe_section.field_section_head
+    - field.instance.node.pe_section.field_section_head_deputy
+    - field.instance.node.pe_section.field_section_secretary
+    - field.instance.node.pe_section.field_section_type
+    - field.instance.node.pe_section.field_telephone_number
+    - field.instance.node.pe_section.field_url
+    - node.type.pe_section
+  module:
+    - datetime
+    - entity_reference
+    - image
+    - link
+    - options
+    - simpleaddress
+    - telephone
+    - text

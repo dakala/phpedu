@@ -1,0 +1,15 @@
+id: node.field_email
+status: true
+langcode: en
+name: field_email
+entity_type: node
+type: email
+settings: {  }
+module: Core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+dependencies:
+  module:
+    - node

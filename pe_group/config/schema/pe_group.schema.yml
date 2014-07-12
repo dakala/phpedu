@@ -1,0 +1,54 @@
+pe_group.settings:
+  type: mapping
+  label: 'User group settings'
+  mapping:
+    enabled:
+      type: sequence
+      label: 'Enabled user group vocabularies'
+      sequence:
+        - type: integer
+          label: 'Weight'
+
+pe_group.role.*:
+  type: mapping
+  label: 'User group role settings'
+  mapping:
+    id:
+      type: string
+      label: 'User group role ID'
+    uuid:
+      type: string
+      label: 'UUID'
+    label:
+      type: label
+      label: 'User group role label'
+    weight:
+      type: integer
+      label: 'User group role weight'
+    permissions:
+      type: sequence
+      label: 'Permissions'
+      sequence:
+        - type: string
+          label: 'Permission'
+    status:
+      type: boolean
+      label: 'Status'
+    langcode:
+      type: string
+      label: 'Default language'
+
+action.configuration.user_add_group_action:
+  type: action_configuration_default
+  label: 'Add the selected users to a group configuration'
+
+action.configuration.user_remove_group_action:
+  type: mapping
+  label: 'Remove the selected users from a group configuration'
+  mapping:
+    tid:
+      type: sequence
+      label: 'Groups'
+      sequence:
+        - type: sequence
+          label: 'Group'

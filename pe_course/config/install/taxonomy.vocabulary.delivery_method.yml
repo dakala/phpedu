@@ -1,0 +1,8 @@
+vid: delivery_method
+name: 'Delivery method'
+description: 'Ways in which teaching instruction is provided for students.'
+hierarchy: 0
+weight: 0
+status: true
+langcode: en
+dependencies: {  }

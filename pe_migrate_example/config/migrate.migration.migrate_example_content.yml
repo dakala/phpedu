@@ -1,0 +1,20 @@
+id: pe_migrate_example_content
+source:
+  plugin: pe_migrate_example_content
+destination:
+  plugin: entity:node
+  type: page
+process:
+  title: subject
+  'body:value': text
+  uid:
+    -
+      plugin: migration
+      migration: pe_migrate_example_people
+      source:
+        - author
+  created:
+    -
+      plugin: callback
+      callable: strtotime
+      source: date

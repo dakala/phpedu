@@ -1,0 +1,8 @@
+vid: terms
+name: Terms
+description: 'Terms in an academic year e.g. summer, 1'
+hierarchy: 0
+weight: 0
+status: true
+langcode: en
+dependencies: {  }

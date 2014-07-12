@@ -1,0 +1,23 @@
+id: node.pe_course.field_section
+status: true
+langcode: en
+field_name: field_section
+entity_type: node
+bundle: pe_course
+label: Faculty/Department
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  handler: default
+  handler_settings:
+    target_bundles:
+      pe_section: pe_section
+    sort:
+      field: _none
+dependencies:
+  entity:
+    - field.field.node.field_section
+    - node.type.pe_course
+field_type: entity_reference

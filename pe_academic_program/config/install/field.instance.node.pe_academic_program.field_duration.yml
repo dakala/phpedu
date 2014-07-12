@@ -1,0 +1,21 @@
+id: node.pe_academic_program.field_duration
+status: true
+langcode: en
+field_name: field_duration
+entity_type: node
+bundle: pe_academic_program
+label: Duration
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+dependencies:
+  entity:
+    - field.field.node.field_duration
+    - node.type.pe_academic_program
+field_type: integer

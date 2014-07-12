@@ -1,0 +1,16 @@
+id: node.field_telephone_number
+status: true
+langcode: en
+name: field_telephone_number
+entity_type: node
+type: telephone
+settings: {  }
+module: telephone
+locked: false
+cardinality: -1
+translatable: false
+indexes: {  }
+dependencies:
+  module:
+    - node
+    - telephone

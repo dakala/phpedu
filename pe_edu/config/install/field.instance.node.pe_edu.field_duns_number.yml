@@ -1,0 +1,18 @@
+id: node.pe_edu.field_duns_number
+status: true
+langcode: en
+field_name: field_duns_number
+entity_type: node
+bundle: pe_edu
+label: 'DUNS number'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  text_processing: 0
+dependencies:
+  entity:
+    - field.field.node.field_duns_number
+    - node.type.pe_edu
+field_type: text

@@ -1,0 +1,8 @@
+name: Assignment answers
+type: module
+description: 'Manage assignment answers.'
+package: phpEdu
+version: VERSION
+core: 8.x
+dependencies:
+  - pe_assignment_question

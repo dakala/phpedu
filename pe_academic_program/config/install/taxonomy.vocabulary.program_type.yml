@@ -1,0 +1,8 @@
+vid: program_type
+name: 'Program type'
+description: 'Types of academic programs offered at the university.'
+hierarchy: 0
+weight: 0
+status: true
+langcode: en
+dependencies: {  }

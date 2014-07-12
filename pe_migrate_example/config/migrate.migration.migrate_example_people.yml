@@ -1,0 +1,33 @@
+id: pe_migrate_example_people
+source:
+  plugin: pe_migrate_example_people
+destination:
+  plugin: entity:user
+  md5_passwords: true
+process:
+  name:
+    -
+      plugin: concat
+      delimiter: .
+      source:
+        - first_name
+        - last_name
+    -
+      plugin: callback
+      callable:
+        - '\Drupal\Component\Utility\Unicode'
+        - strtolower
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: dedupe_entity
+      entity_type: user
+      field: name
+  mail: email
+  pass: pass
+  roles:
+    -
+      plugin: explode
+      delimiter: ';'
+      source: groups

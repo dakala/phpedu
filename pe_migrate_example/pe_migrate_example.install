@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the migrate_example module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * @see hook_install()
+ * @ingroup pe_migrate_example
+ */
+function pe_migrate_example_install() {
+
+}

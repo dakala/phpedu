@@ -1,0 +1,122 @@
+id: node.pe_section.default
+targetEntityType: node
+bundle: pe_section
+mode: default
+content:
+  field_image:
+    type: image
+    weight: 0
+    settings:
+      image_style: large
+      image_link: content
+    label: hidden
+  body:
+    type: text_default
+    weight: 1
+    settings: {  }
+    label: hidden
+  field_code:
+    type: text_default
+    weight: 2
+    settings: {  }
+    label: above
+  field_section_type:
+    type: taxonomy_term_reference_plain
+    weight: 3
+    settings: {  }
+    label: above
+  field_parent_section:
+    type: entity_reference_label
+    weight: 4
+    settings:
+      link: false
+    label: above
+  field_section_head:
+    type: entity_reference_label
+    weight: 5
+    settings:
+      link: false
+    label: above
+  field_section_head_deputy:
+    type: entity_reference_label
+    weight: 6
+    settings:
+      link: false
+    label: above
+  field_section_secretary:
+    type: entity_reference_label
+    weight: 7
+    settings:
+      link: false
+    label: above
+  field_founding_date:
+    type: datetime_default
+    weight: 8
+    settings:
+      format_type: medium
+    label: above
+  field_defunct_date:
+    type: datetime_default
+    weight: 9
+    settings:
+      format_type: medium
+    label: above
+  field_url:
+    type: link
+    weight: 10
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    label: above
+  field_email:
+    type: string
+    weight: 11
+    settings: {  }
+    label: above
+  field_address:
+    type: simpleaddress_default
+    weight: 12
+    settings: {  }
+    label: above
+  field_telephone_number:
+    type: string
+    weight: 13
+    settings: {  }
+    label: above
+  field_fax_number:
+    type: string
+    weight: 14
+    settings: {  }
+    label: above
+hidden:
+  langcode: true
+status: true
+dependencies:
+  entity:
+    - field.instance.node.pe_section.body
+    - field.instance.node.pe_section.field_address
+    - field.instance.node.pe_section.field_code
+    - field.instance.node.pe_section.field_defunct_date
+    - field.instance.node.pe_section.field_email
+    - field.instance.node.pe_section.field_fax_number
+    - field.instance.node.pe_section.field_founding_date
+    - field.instance.node.pe_section.field_image
+    - field.instance.node.pe_section.field_parent_section
+    - field.instance.node.pe_section.field_section_head
+    - field.instance.node.pe_section.field_section_head_deputy
+    - field.instance.node.pe_section.field_section_secretary
+    - field.instance.node.pe_section.field_section_type
+    - field.instance.node.pe_section.field_telephone_number
+    - field.instance.node.pe_section.field_url
+    - node.type.pe_section
+  module:
+    - datetime
+    - entity_reference
+    - image
+    - link
+    - simpleaddress
+    - taxonomy
+    - text

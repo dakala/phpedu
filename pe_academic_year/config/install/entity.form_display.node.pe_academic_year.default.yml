@@ -1,0 +1,37 @@
+id: node.pe_academic_year.default
+targetEntityType: node
+bundle: pe_academic_year
+mode: default
+content:
+  title:
+    type: string
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+  body:
+    type: text_textarea_with_summary
+    weight: -4
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+  field_start_date:
+    weight: -3
+    settings: {  }
+    type: datetime_default
+  field_end_date:
+    weight: -2
+    settings: {  }
+    type: datetime_default
+hidden: {  }
+status: true
+dependencies:
+  entity:
+    - field.instance.node.pe_academic_year.body
+    - field.instance.node.pe_academic_year.field_end_date
+    - field.instance.node.pe_academic_year.field_start_date
+    - node.type.pe_academic_year
+  module:
+    - datetime
+    - text

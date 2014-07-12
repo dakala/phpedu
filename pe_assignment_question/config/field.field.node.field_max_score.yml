@@ -1,0 +1,13 @@
+id: node.field_max_score
+uuid: d3cd74d7-c833-4363-8310-1610f8397096
+status: true
+langcode: en
+name: field_max_score
+entity_type: node
+type: integer
+settings: {  }
+module: Core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }

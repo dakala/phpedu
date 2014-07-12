@@ -1,0 +1,18 @@
+id: node.pe_academic_term.field_term
+status: true
+langcode: en
+field_name: field_term
+entity_type: node
+bundle: pe_academic_term
+label: Term
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  handler: default
+dependencies:
+  entity:
+    - field.field.node.field_term
+    - node.type.pe_academic_term
+field_type: taxonomy_term_reference

@@ -1,0 +1,55 @@
+id: node.pe_course.teaser
+targetEntityType: node
+bundle: pe_course
+mode: teaser
+content:
+  field_image:
+    type: responsive_image
+    weight: 0
+    settings:
+      responsive_image_mapping: ''
+      fallback_image_style: ''
+      image_link: ''
+    label: hidden
+  body:
+    type: text_summary_or_trimmed
+    weight: 1
+    settings:
+      trim_length: 600
+    label: hidden
+  field_section:
+    type: entity_reference_label
+    weight: 2
+    settings:
+      link: false
+    label: above
+  field_code:
+    type: text_default
+    weight: 3
+    settings: {  }
+    label: above
+hidden:
+  langcode: true
+  field_course_book: true
+  field_credits: true
+  field_delivery_method: true
+  field_hours: true
+  field_remarks: true
+status: true
+dependencies:
+  entity:
+    - entity.view_mode.node.teaser
+    - field.instance.node.pe_course.body
+    - field.instance.node.pe_course.field_code
+    - field.instance.node.pe_course.field_course_book
+    - field.instance.node.pe_course.field_credits
+    - field.instance.node.pe_course.field_delivery_method
+    - field.instance.node.pe_course.field_hours
+    - field.instance.node.pe_course.field_image
+    - field.instance.node.pe_course.field_remarks
+    - field.instance.node.pe_course.field_section
+    - node.type.pe_course
+  module:
+    - entity_reference
+    - responsive_image
+    - text

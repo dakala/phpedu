@@ -1,0 +1,110 @@
+id: node.pe_academic_program_course.default
+targetEntityType: node
+bundle: pe_academic_program_course
+mode: default
+content:
+  title:
+    type: string
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+  body:
+    type: text_textarea_with_summary
+    weight: 1
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+  field_academic_program:
+    type: entity_reference_autocomplete
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+  field_course:
+    type: entity_reference_autocomplete
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+  field_course_weight:
+    type: options_select
+    weight: 4
+    settings: {  }
+  field_level:
+    type: options_select
+    weight: 5
+    settings: {  }
+  field_academic_year:
+    type: entity_reference_autocomplete
+    weight: 6
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+  field_academic_term:
+    type: entity_reference_autocomplete
+    weight: 7
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+  field_pre_requisites:
+    type: entity_reference_autocomplete
+    weight: 8
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+  field_co_requisites:
+    type: entity_reference_autocomplete
+    weight: 9
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+  field_anti_requisites:
+    type: entity_reference_autocomplete
+    weight: 10
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+  field_non_requisites:
+    type: entity_reference_autocomplete
+    weight: 11
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+hidden: {  }
+status: true
+dependencies:
+  entity:
+    - field.instance.node.pe_academic_program_course.body
+    - field.instance.node.pe_academic_program_course.field_academic_program
+    - field.instance.node.pe_academic_program_course.field_academic_term
+    - field.instance.node.pe_academic_program_course.field_academic_year
+    - field.instance.node.pe_academic_program_course.field_anti_requisites
+    - field.instance.node.pe_academic_program_course.field_co_requisites
+    - field.instance.node.pe_academic_program_course.field_course
+    - field.instance.node.pe_academic_program_course.field_course_weight
+    - field.instance.node.pe_academic_program_course.field_level
+    - field.instance.node.pe_academic_program_course.field_non_requisites
+    - field.instance.node.pe_academic_program_course.field_pre_requisites
+    - node.type.pe_academic_program_course
+  module:
+    - entity_reference
+    - options
+    - text

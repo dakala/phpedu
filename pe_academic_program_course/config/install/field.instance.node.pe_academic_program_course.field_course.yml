@@ -1,0 +1,23 @@
+id: node.pe_academic_program_course.field_course
+status: true
+langcode: en
+field_name: field_course
+entity_type: node
+bundle: pe_academic_program_course
+label: Course
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  handler: default
+  handler_settings:
+    target_bundles:
+      pe_course: pe_course
+    sort:
+      field: _none
+dependencies:
+  entity:
+    - field.field.node.field_course
+    - node.type.pe_academic_program_course
+field_type: entity_reference

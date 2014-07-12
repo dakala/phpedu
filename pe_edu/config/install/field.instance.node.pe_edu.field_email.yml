@@ -1,0 +1,17 @@
+id: node.pe_edu.field_email
+status: true
+langcode: en
+field_name: field_email
+entity_type: node
+bundle: pe_edu
+label: Email
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings: {  }
+dependencies:
+  entity:
+    - field.field.node.field_email
+    - node.type.pe_edu
+field_type: email

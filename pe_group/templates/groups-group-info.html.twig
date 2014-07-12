@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ *
+ *
+ * Available variables:
+ * - name: Group name.
+ * - description: Introduction to group.
+ *
+ * @see template_preprocess_groups_group_info()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="name"><a href="{{ link }}">{{ name }}</a></div>
+{% if description %}
+    <div class="description">{{ description }}</div>
+{% endif %}

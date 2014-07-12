@@ -1,0 +1,16 @@
+id: node.field_assignment_answer_file
+uuid: c064cf2d-c609-47d3-b300-ccad546d4733
+status: true
+langcode: en
+name: field_assignment_answer_file
+entity_type: node
+type: file
+settings:
+  uri_scheme: public
+  display_field: false
+  display_default: false
+module: file
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }

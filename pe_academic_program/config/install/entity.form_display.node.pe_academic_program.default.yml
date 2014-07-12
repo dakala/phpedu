@@ -1,0 +1,92 @@
+id: node.pe_academic_program.default
+targetEntityType: node
+bundle: pe_academic_program
+mode: default
+content:
+  title:
+    type: string
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+  field_image:
+    type: image_image
+    weight: 1
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+  body:
+    type: text_textarea_with_summary
+    weight: 2
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+  field_code:
+    type: text_textfield
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+  field_section:
+    type: entity_reference_autocomplete
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      autocomplete_type: tags
+      placeholder: ''
+  field_program_type:
+    type: options_select
+    weight: 5
+    settings: {  }
+  field_program:
+    type: options_select
+    weight: 6
+    settings: {  }
+  field_study_mode:
+    type: options_select
+    weight: 7
+    settings: {  }
+  field_duration:
+    type: number
+    weight: 8
+    settings:
+      placeholder: ''
+  field_career:
+    type: text_textarea
+    weight: 9
+    settings:
+      rows: 5
+      placeholder: ''
+  field_duration_unit:
+    type: options_select
+    weight: 10
+    settings: {  }
+  field_requirements:
+    type: text_textarea
+    weight: 11
+    settings:
+      rows: 5
+      placeholder: ''
+hidden: {  }
+status: true
+dependencies:
+  entity:
+    - field.instance.node.pe_academic_program.body
+    - field.instance.node.pe_academic_program.field_career
+    - field.instance.node.pe_academic_program.field_code
+    - field.instance.node.pe_academic_program.field_duration
+    - field.instance.node.pe_academic_program.field_duration_unit
+    - field.instance.node.pe_academic_program.field_image
+    - field.instance.node.pe_academic_program.field_program
+    - field.instance.node.pe_academic_program.field_program_type
+    - field.instance.node.pe_academic_program.field_requirements
+    - field.instance.node.pe_academic_program.field_section
+    - field.instance.node.pe_academic_program.field_study_mode
+    - node.type.pe_academic_program
+  module:
+    - entity_reference
+    - image
+    - options
+    - text
