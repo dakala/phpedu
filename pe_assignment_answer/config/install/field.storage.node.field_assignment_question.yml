@@ -1,0 +1,13 @@
+id: node.field_assignment_question
+status: true
+langcode: en
+name: field_assignment_question
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: entity_reference
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }

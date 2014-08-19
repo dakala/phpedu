@@ -1,0 +1,21 @@
+id: node.pe_assignment_question.field_max_score
+status: true
+langcode: en
+field_name: field_max_score
+entity_type: node
+bundle: pe_assignment_question
+label: 'Max score'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
+dependencies:
+  entity:
+    - field.storage.node.field_max_score
+    - node.type.pe_assignment_question

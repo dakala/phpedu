@@ -13,6 +13,6 @@ settings:
   handler: default
 dependencies:
   entity:
-    - field.field.node.field_course_weight
+    - field.storage.node.field_course_weight
     - node.type.pe_academic_program_course
 field_type: taxonomy_term_reference

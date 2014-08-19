@@ -13,6 +13,6 @@ settings:
   text_processing: '0'
 dependencies:
   entity:
-    - field.field.node.field_remarks
+    - field.storage.node.field_remarks
     - node.type.pe_course
 field_type: text_long

@@ -28,6 +28,6 @@ settings:
   handler: default
 dependencies:
   entity:
-    - field.field.node.field_image
+    - field.storage.node.field_image
     - node.type.pe_academic_program
 field_type: image

@@ -12,6 +12,6 @@ default_value_function: ''
 settings: {  }
 dependencies:
   entity:
-    - field.field.node.field_start_date
+    - field.storage.node.field_start_date
     - node.type.pe_academic_year
 field_type: datetime

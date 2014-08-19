@@ -232,7 +232,7 @@ class GroupManager {
    */
   public function loadTermReferenceFields() {
     if (!isset($this->fields)) {
-      $fields = $this->entityManager->getStorage('field_config')
+      $fields = $this->entityManager->getStorage('field_storage_config')
         ->loadMultiple();
 
       foreach ($fields as $key => $field) {

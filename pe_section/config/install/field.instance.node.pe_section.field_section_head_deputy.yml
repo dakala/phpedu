@@ -27,6 +27,6 @@ settings:
       field: _none
 dependencies:
   entity:
-    - field.field.node.field_section_head_deputy
+    - field.storage.node.field_section_head_deputy
     - node.type.pe_section
 field_type: entity_reference

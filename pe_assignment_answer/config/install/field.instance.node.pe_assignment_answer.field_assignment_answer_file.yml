@@ -1,0 +1,21 @@
+id: node.pe_assignment_answer.field_assignment_answer_file
+status: true
+langcode: en
+field_name: field_assignment_answer_file
+entity_type: node
+bundle: pe_assignment_answer
+label: 'Answer file'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  file_directory: ''
+  file_extensions: 'txt odt doc docx xls xlsx ppt pptx pdf rtf'
+  max_filesize: ''
+  description_field: true
+field_type: file
+dependencies:
+  entity:
+    - field.storage.node.field_assignment_answer_file
+    - node.type.pe_assignment_answer

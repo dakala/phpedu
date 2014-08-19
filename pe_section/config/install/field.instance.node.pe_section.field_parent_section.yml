@@ -18,6 +18,6 @@ settings:
       field: _none
 dependencies:
   entity:
-    - field.field.node.field_parent_section
+    - field.storage.node.field_parent_section
     - node.type.pe_section
 field_type: entity_reference

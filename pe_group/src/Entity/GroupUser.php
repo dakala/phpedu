@@ -10,7 +10,7 @@ namespace Drupal\pe_group\Entity;
 use Drupal\Core\Entity\ContentEntityBase;
 //use Drupal\Core\Entity\EntityStorageControllerInterface;
 use Drupal\Core\Entity\EntityMalformedException;
-use Drupal\Core\Field\FieldDefinition;
+use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\user\Entity\User;
 //use Drupal\user\UserInterface;
 use Drupal\pe_group\GroupUserInterface;

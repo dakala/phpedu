@@ -8,6 +8,7 @@
 namespace Drupal\pe_group\Plugin\Action;
 
 use Drupal\Core\Action\ConfigurableActionBase;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides a base class for operations to change a user's role.
@@ -26,7 +27,7 @@ abstract class ChangeUserRoleBase extends ConfigurableActionBase {
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, array &$form_state) {
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $roles = group_role_names(TRUE);
     unset($roles[GROUP_MEMBER_RID]);
     $form['rid'] = array(
@@ -42,8 +43,8 @@ abstract class ChangeUserRoleBase extends ConfigurableActionBase {
   /**
    * {@inheritdoc}
    */
-  public function submitConfigurationForm(array &$form, array &$form_state) {
-    $this->configuration['rid'] = $form_state['values']['rid'];
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    $this->configuration['rid'] = $form_state->getValue('rid');
   }
 
 }

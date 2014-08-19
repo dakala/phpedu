@@ -1,0 +1,24 @@
+id: node.pe_assignment_question.field_academic_program_course
+status: true
+langcode: en
+field_name: field_academic_program_course
+entity_type: node
+bundle: pe_assignment_question
+label: 'Course'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  handler: default
+  handler_settings:
+    target_bundles:
+      pe_academic_program_course: pe_academic_program_course
+    sort:
+      field: _none
+dependencies:
+  entity:
+    - field.storage.node.field_academic_program_course
+    - node.type.pe_assignment_question
+field_type: entity_reference
+

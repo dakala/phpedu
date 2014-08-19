@@ -18,6 +18,6 @@ settings:
       field: _none
 dependencies:
   entity:
-    - field.field.node.field_section
+    - field.storage.node.field_section
     - node.type.pe_course
 field_type: entity_reference

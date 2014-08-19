@@ -7,6 +7,7 @@
 
 namespace Drupal\pe_group\Plugin\views\filter;
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\views\filter\BooleanOperator;
 
 /**
@@ -20,7 +21,7 @@ class GroupStatus extends BooleanOperator {
 
   public function adminSummary() { }
 
-  protected function operatorForm(&$form, &$form_state) { }
+  protected function operatorForm(&$form, FormStateInterface $form_state) { }
 
   public function canExpose() { return FALSE; }
 

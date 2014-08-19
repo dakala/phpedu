@@ -16,6 +16,6 @@ settings:
   suffix: ''
 dependencies:
   entity:
-    - field.field.node.field_credits
+    - field.storage.node.field_credits
     - node.type.pe_course
 field_type: integer

@@ -8,6 +8,8 @@
 namespace Drupal\pe_group\Plugin\Action;
 
 use Drupal\Core\Action\ConfigurableActionBase;
+use Drupal\Core\Form\FormStateInterface;
+
 
 /**
  * Provides a base class for operations to change a user's group membership.
@@ -26,7 +28,7 @@ abstract class ChangeUserGroupBase extends ConfigurableActionBase {
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, array &$form_state) {
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form['tid'] = array(
       '#type' => 'radios',
       '#title' => t('Group'),
@@ -40,8 +42,8 @@ abstract class ChangeUserGroupBase extends ConfigurableActionBase {
   /**
    * {@inheritdoc}
    */
-  public function submitConfigurationForm(array &$form, array &$form_state) {
-    $this->configuration['tid'] = $form_state['values']['tid'];
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    $this->configuration['tid'] = $form_state->getValue('tid');
   }
 
 }

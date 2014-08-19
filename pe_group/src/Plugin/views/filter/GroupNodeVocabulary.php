@@ -9,6 +9,7 @@ namespace Drupal\pe_group\Plugin\views\filter;
 
 use Drupal\views\Plugin\views\filter\FilterPluginBase;
 use Drupal\views\Views;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Field handler to present a link to user edit.
@@ -22,7 +23,7 @@ class GroupNodeVocabulary extends FilterPluginBase {
   public function adminSummary() {
   }
 
-  protected function operatorForm(&$form, &$form_state) {
+  protected function operatorForm(&$form, FormStateInterface $form_state) {
   }
 
   public function canExpose() {

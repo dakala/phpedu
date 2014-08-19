@@ -13,6 +13,6 @@ settings:
   handler: default
 dependencies:
   entity:
-    - field.field.node.field_program
+    - field.storage.node.field_program
     - node.type.pe_academic_program
 field_type: taxonomy_term_reference

@@ -13,6 +13,6 @@ settings:
   text_processing: 0
 dependencies:
   entity:
-    - field.field.node.field_code
+    - field.storage.node.field_code
     - node.type.pe_course
 field_type: text

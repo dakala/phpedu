@@ -14,6 +14,6 @@ settings:
   title: '1'
 dependencies:
   entity:
-    - field.field.node.field_url
+    - field.storage.node.field_url
     - node.type.pe_edu
 field_type: link

@@ -7,14 +7,14 @@
 
 namespace Drupal\pe_group;
 
-use Drupal\Core\Entity\EntityAccessController;
+use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
 
 /**
  * Defines the access controller for the user_role entity type.
  */
-class RoleAccessController extends EntityAccessController {
+class RoleAccessController extends EntityAccessControlHandler {
 
   /**
    * {@inheritdoc}

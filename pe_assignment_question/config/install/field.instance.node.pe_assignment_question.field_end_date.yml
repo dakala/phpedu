@@ -1,0 +1,17 @@
+id: node.pe_assignment_question.field_end_date
+status: true
+langcode: en
+field_name: field_end_date
+entity_type: node
+bundle: pe_assignment_question
+label: 'End date'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings: {  }
+field_type: datetime
+dependencies:
+  entity:
+    - field.storage.node.field_end_date
+    - node.type.pe_assignment_question

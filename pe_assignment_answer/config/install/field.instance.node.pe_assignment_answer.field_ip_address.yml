@@ -1,0 +1,18 @@
+id: node.pe_assignment_answer.field_ip_address
+status: true
+langcode: en
+field_name: field_ip_address
+entity_type: node
+bundle: pe_assignment_answer
+label: 'IP address'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  text_processing: '0'
+field_type: text
+dependencies:
+  entity:
+    - field.storage.node.field_ip_address
+    - node.type.pe_assignment_answer

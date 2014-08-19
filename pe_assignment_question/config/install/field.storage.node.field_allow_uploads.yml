@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_allow_uploads
+name: field_allow_uploads
+entity_type: node
+type: boolean
+settings:
+  on_label: 'Allow file uploads'
+  off_label: 'Disallow file uploads'
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+dependencies:
+  module:
+    - entity_reference
+    - node

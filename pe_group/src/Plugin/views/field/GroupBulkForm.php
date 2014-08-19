@@ -10,6 +10,7 @@ namespace Drupal\pe_group\Plugin\views\field;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\system\Plugin\views\field\BulkForm;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Defines a group operations bulk form element.
@@ -29,7 +30,7 @@ class GroupBulkForm extends BulkForm {
   /**
    * {@inheritdoc}
    */
-  public function buildOptionsForm(&$form, &$form_state) {
+  public function buildOptionsForm(&$form, FormStateInterface $form_state) {
 //    $form['action_title'] = array(
 //      '#type' => 'textfield',
 //      '#title' => t('Action title'),
@@ -43,7 +44,7 @@ class GroupBulkForm extends BulkForm {
   /**
    * {@inheritdoc}
    */
-  public function viewsFormSubmit(&$form, &$form_state) {
+  public function viewsFormSubmit(&$form, FormStateInterface $form_state) {
     parent::viewsFormSubmit($form, $form_state);
 
     if ($form_state['step'] == 'views_form_views_form') {

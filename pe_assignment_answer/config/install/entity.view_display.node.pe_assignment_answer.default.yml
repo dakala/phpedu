@@ -1,0 +1,50 @@
+id: node.pe_assignment_answer.default
+targetEntityType: node
+bundle: pe_assignment_answer
+mode: default
+content:
+  field_assignment_question:
+    type: entity_reference_label
+    weight: '0'
+    settings:
+      link: 0
+    label: above
+  body:
+    type: text_default
+    weight: '1'
+    settings: {  }
+    label: above
+  field_assignment_answer_file:
+    type: file_default
+    weight: '2'
+    settings: {  }
+    label: above
+  field_score:
+    type: integer
+    weight: '3'
+    settings:
+      thousand_separator: ''
+      prefix_suffix: 'TRUE'
+    label: above
+  field_remarks:
+    type: text_default
+    weight: '4'
+    settings: {  }
+    label: above
+hidden:
+  langcode: true
+  field_ip_address: true
+status: true
+dependencies:
+  entity:
+    - field.instance.node.pe_assignment_answer.body
+    - field.instance.node.pe_assignment_answer.field_assignment_question
+    - field.instance.node.pe_assignment_answer.field_remarks
+    - field.instance.node.pe_assignment_answer.field_score
+    - field.instance.node.pe_assignment_answer.field_ip_address
+    - field.instance.node.pe_assignment_answer.field_assignment_answer_file
+    - node.type.pe_assignment_answer
+  module:
+    - entity_reference
+    - file
+    - text

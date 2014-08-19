@@ -3,9 +3,9 @@ langcode: en
 status: true
 dependencies:
   entity:
-    - field.field.node.field_end_date
-    - field.field.node.field_start_date
-    - field.field.node.field_term
+    - field.storage.node.field_end_date
+    - field.storage.node.field_start_date
+    - field.storage.node.field_term
   module:
     - field
     - node
@@ -165,7 +165,7 @@ display:
           admin_label: ''
           dependencies:
             entity:
-              - field.field.node.field_term
+              - field.storage.node.field_term
             module:
               - field
           label: Term
@@ -233,7 +233,7 @@ display:
           admin_label: ''
           dependencies:
             entity:
-              - field.field.node.field_start_date
+              - field.storage.node.field_start_date
             module:
               - field
           label: 'Start date'
@@ -302,7 +302,7 @@ display:
           admin_label: ''
           dependencies:
             entity:
-              - field.field.node.field_end_date
+              - field.storage.node.field_end_date
             module:
               - field
           label: 'End date'

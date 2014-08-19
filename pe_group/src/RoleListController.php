@@ -7,13 +7,14 @@
 
 namespace Drupal\pe_group;
 
-use Drupal\Core\Config\Entity\DraggableListController;
+use Drupal\Core\Config\Entity\DraggableListBuilder;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides a listing of user roles.
  */
-class RoleListController extends DraggableListController  {
+class RoleListController extends DraggableListBuilder  {
 
   /**
    * {@inheritdoc}
@@ -56,7 +57,7 @@ class RoleListController extends DraggableListController  {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, array &$form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
 
     drupal_set_message(t('The group role settings have been updated.'));

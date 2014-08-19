@@ -14,6 +14,6 @@ settings:
   text_processing: true
 dependencies:
   entity:
-    - field.field.node.body
+    - field.storage.node.body
     - node.type.pe_course
 field_type: text_with_summary

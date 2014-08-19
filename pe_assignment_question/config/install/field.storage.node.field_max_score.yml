@@ -1,0 +1,12 @@
+id: node.field_max_score
+status: true
+langcode: en
+name: field_max_score
+entity_type: node
+type: integer
+settings: {  }
+module: Core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }

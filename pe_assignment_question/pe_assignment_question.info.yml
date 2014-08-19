@@ -1,4 +1,4 @@
-name: Assignments
+name: Assignment
 type: module
 description: 'Manage assignment questions.'
 package: phpEdu

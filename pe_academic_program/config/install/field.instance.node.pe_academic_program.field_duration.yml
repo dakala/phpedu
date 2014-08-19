@@ -16,6 +16,6 @@ settings:
   suffix: ''
 dependencies:
   entity:
-    - field.field.node.field_duration
+    - field.storage.node.field_duration
     - node.type.pe_academic_program
 field_type: integer

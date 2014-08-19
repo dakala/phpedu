@@ -7,7 +7,12 @@
 
 namespace Drupal\pe_group\Form;
 
-use Drupal\Core\Entity\EntityConfirmFormBase;
+use Drupal\Core\Entity\ContentEntityConfirmFormBase;
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\UrlGeneratorInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 
 /**
  * Provides a deletion confirmation form for Role entity.
@@ -33,11 +38,11 @@ class UserRoleDelete extends \Drupal\user\Form\UserRoleDelete {
   /**
    * {@inheritdoc}
    */
-  public function submit(array $form, array &$form_state) {
+  public function submit(array $form, FormStateInterface $form_state) {
     $this->entity->delete();
     watchdog('group', 'Group Role %name has been deleted.', array('%name' => $this->entity->label()));
     drupal_set_message($this->t('Group Role %name has been deleted.', array('%name' => $this->entity->label())));
-    $form_state['redirect_route']['route_name'] = 'group.role_list';
+    $form_state->setRedirect('group.role_list');
   }
 
 }

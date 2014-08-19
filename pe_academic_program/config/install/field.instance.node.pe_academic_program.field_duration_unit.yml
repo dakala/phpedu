@@ -13,6 +13,6 @@ settings:
   handler: default
 dependencies:
   entity:
-    - field.field.node.field_duration_unit
+    - field.storage.node.field_duration_unit
     - node.type.pe_academic_program
 field_type: taxonomy_term_reference

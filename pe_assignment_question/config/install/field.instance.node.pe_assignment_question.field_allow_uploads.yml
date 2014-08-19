@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  entity:
+    - field.storage.node.field_allow_uploads
+    - node.type.pe_assignment_question
+id: node.pe_assignment_question.field_allow_uploads
+label: 'Okay?'
+field_name: field_allow_uploads
+entity_type: node
+bundle: pe_assignment_question
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_function: ''
+settings: {  }
+field_type: boolean

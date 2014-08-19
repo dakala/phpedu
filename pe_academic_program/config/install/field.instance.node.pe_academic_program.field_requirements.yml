@@ -13,6 +13,6 @@ settings:
   text_processing: '0'
 dependencies:
   entity:
-    - field.field.node.field_requirements
+    - field.storage.node.field_requirements
     - node.type.pe_academic_program
 field_type: text_long

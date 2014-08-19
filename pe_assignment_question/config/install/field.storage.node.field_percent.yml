@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_percent
+name: field_percent
+entity_type: node
+type: boolean
+settings:
+  on_label: 'Display as percent'
+  off_label: 'Do no display as percent'
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }

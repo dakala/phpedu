@@ -884,7 +884,6 @@ label: 'Group members'
 module: user
 id: user_admin_group_members
 tag: phpedu
-uuid: 456db515-f8aa-4e59-871e-301e69514a20
 langcode: und
 dependencies:
   module:

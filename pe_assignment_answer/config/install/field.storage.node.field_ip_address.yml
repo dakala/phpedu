@@ -1,0 +1,13 @@
+id: node.field_ip_address
+status: true
+langcode: en
+name: field_ip_address
+entity_type: node
+type: text
+settings:
+  max_length: 255
+module: text
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }

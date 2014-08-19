@@ -13,6 +13,6 @@ settings:
   handler: default
 dependencies:
   entity:
-    - field.field.node.field_delivery_method
+    - field.storage.node.field_delivery_method
     - node.type.pe_course
 field_type: taxonomy_term_reference

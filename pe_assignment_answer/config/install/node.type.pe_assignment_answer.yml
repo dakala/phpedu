@@ -1,0 +1,17 @@
+type: pe_assignment_answer
+name: 'Assignment answer'
+description: 'Students submit Assignment Answers in response to homework tasks. This can be typed in or uploaded as a document in acceptable format.'
+help: ''
+has_title: true
+title_label: Title
+settings:
+  node:
+    preview: 1
+    options:
+      status: true
+      promote: false
+      sticky: false
+      revision: false
+    submitted: false
+status: true
+langcode: en

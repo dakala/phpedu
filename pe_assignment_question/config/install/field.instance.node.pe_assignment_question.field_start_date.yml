@@ -1,0 +1,17 @@
+id: node.pe_assignment_question.field_start_date
+status: true
+langcode: en
+field_name: field_start_date
+entity_type: node
+bundle: pe_assignment_question
+label: 'Start date'
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings: {  }
+field_type: datetime
+dependencies:
+  entity:
+    - field.storage.node.field_start_date
+    - node.type.pe_assignment_question

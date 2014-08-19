@@ -13,6 +13,6 @@ settings:
   handler: default
 dependencies:
   entity:
-    - field.field.node.field_section_type
+    - field.storage.node.field_section_type
     - node.type.pe_section
 field_type: taxonomy_term_reference

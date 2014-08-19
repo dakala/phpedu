@@ -8,17 +8,18 @@
 namespace Drupal\pe_group;
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityFormController;
+use Drupal\Core\Entity\EntityForm;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Form controller for the role entity edit forms.
  */
-class RoleFormController extends EntityFormController {
+class RoleFormController extends EntityForm {
 
   /**
    * {@inheritdoc}
    */
-  public function form(array $form, array &$form_state) {
+  public function form(array $form, FormStateInterface $form_state) {
     $entity = $this->entity;
     $form['label'] = array(
       '#type' => 'textfield',
@@ -51,7 +52,7 @@ class RoleFormController extends EntityFormController {
   /**
    * {@inheritdoc}
    */
-  protected function actions(array $form, array &$form_state) {
+  protected function actions(array $form, FormStateInterface $form_state) {
     $actions = parent::actions($form, $form_state);
     // Disable delete of new and built-in roles.
     $actions['delete']['#access'] = !$this->entity->isNew() && !in_array($this->entity->id(), array(GROUP_MEMBER_RID, GROUP_ADMINISTRATOR_RID, GROUP_SECRETARY_RID, GROUP_LEADER_RID));
@@ -61,7 +62,7 @@ class RoleFormController extends EntityFormController {
   /**
    * {@inheritdoc}
    */
-  public function save(array $form, array &$form_state) {
+  public function save(array $form, FormStateInterface $form_state) {
     $entity = $this->entity;
 
     // Prevent leading and trailing spaces in role names.
@@ -78,7 +79,8 @@ class RoleFormController extends EntityFormController {
       drupal_set_message($this->t('Group role %label has been added.', array('%label' => $entity->label())));
       watchdog('group', 'Group role %label has been added.', array('%label' => $entity->label()), WATCHDOG_NOTICE, $edit_link);
     }
-    $form_state['redirect_route']['route_name'] = 'group.role_list';
+
+    $form_state->setRedirect('group.role_list');
   }
 
 }

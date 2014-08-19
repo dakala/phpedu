@@ -8,6 +8,7 @@
 namespace Drupal\pe_group\Plugin\views\filter;
 
 use Drupal\views\Plugin\views\filter\FilterPluginBase;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Field handler to present a link to user edit.
@@ -20,7 +21,7 @@ class GroupTermVocabulary extends FilterPluginBase {
 
   public function adminSummary() {}
 
-  protected function operatorForm(&$form, &$form_state) {}
+  protected function operatorForm(&$form, FormStateInterface $form_state) {}
 
   public function canExpose() {
     return FALSE;

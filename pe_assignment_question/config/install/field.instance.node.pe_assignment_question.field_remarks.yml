@@ -1,0 +1,18 @@
+id: node.pe_assignment_question.field_remarks
+status: true
+langcode: en
+field_name: field_remarks
+entity_type: node
+bundle: pe_assignment_question
+label: Remarks
+description: ''
+required: false
+default_value: {  }
+default_value_function: ''
+settings:
+  text_processing: '1'
+field_type: text_long
+dependencies:
+  entity:
+    - field.storage.node.field_remarks
+    - node.type.pe_assignment_question
