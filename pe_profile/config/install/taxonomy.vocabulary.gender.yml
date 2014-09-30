@@ -1,8 +1,8 @@
 langcode: en
 status: true
 dependencies: {  }
-name: 'Study mode'
-vid: study_mode
-description: 'Modes of study.'
+name: Gender
+vid: gender
+description: ''
 hierarchy: 0
 weight: 0

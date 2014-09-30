@@ -1,0 +1,7 @@
+id: staff
+label: 'Staff'
+registration: false
+multiple: false
+weight: 0
+status: true
+langcode: en

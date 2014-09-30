@@ -1,8 +1,8 @@
-vid: course_weight
+langcode: en
+status: true
+dependencies: {  }
 name: 'Course weight'
+vid: course_weight
 description: 'Relative importance of different courses.'
 hierarchy: 0
 weight: 0
-status: true
-langcode: en
-dependencies: {  }

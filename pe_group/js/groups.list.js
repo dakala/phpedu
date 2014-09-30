@@ -15,9 +15,6 @@
       var $table = $($input.attr('data-table'));
       var $rows;
 
-      console.log($input);
-      console.log($table.length);
-
       function filterGroupList(e) {
         var query = $(e.target).val().toLowerCase();
 

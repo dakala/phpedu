@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Personal title'
+vid: personal_title
+description: 'Title or personal title e.g. Mr, Mrs'
+hierarchy: 0
+weight: 0

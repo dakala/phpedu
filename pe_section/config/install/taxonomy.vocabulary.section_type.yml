@@ -1,8 +1,8 @@
-vid: section_type
+langcode: en
+status: true
+dependencies: {  }
 name: 'Section type'
+vid: section_type
 description: 'Type of section'
 hierarchy: 0
 weight: 0
-status: true
-langcode: en
-dependencies: {  }

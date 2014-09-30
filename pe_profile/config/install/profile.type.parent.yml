@@ -1,0 +1,7 @@
+id: parent
+label: 'Parent'
+registration: false
+multiple: false
+weight: 0
+status: true
+langcode: en

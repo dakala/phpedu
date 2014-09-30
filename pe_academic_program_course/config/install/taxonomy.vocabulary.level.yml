@@ -1,8 +1,8 @@
-vid: level
+langcode: en
+status: true
+dependencies: {  }
 name: Level
+vid: level
 description: 'Levels of study.'
 hierarchy: 0
 weight: 0
-status: true
-langcode: en
-dependencies: {  }

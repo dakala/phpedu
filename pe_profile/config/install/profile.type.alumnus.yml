@@ -1,0 +1,7 @@
+id: alumnus
+label: 'Alumnus'
+registration: false
+multiple: false
+weight: 0
+status: true
+langcode: en

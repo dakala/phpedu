@@ -1,8 +1,8 @@
-vid: institution_type
+langcode: en
+status: true
+dependencies: {  }
 name: 'Institution type'
+vid: institution_type
 description: 'Type of academic institution'
 hierarchy: 0
 weight: 0
-status: true
-langcode: en
-dependencies: {  }

@@ -1,0 +1,7 @@
+id: student
+label: 'Student'
+registration: false
+multiple: false
+weight: 0
+status: true
+langcode: en

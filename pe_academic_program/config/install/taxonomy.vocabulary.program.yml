@@ -1,8 +1,8 @@
-vid: program
+langcode: en
+status: true
+dependencies: {  }
 name: Program
+vid: program
 description: 'Academic programs offered at the university.'
 hierarchy: 0
 weight: 0
-status: true
-langcode: en
-dependencies: {  }

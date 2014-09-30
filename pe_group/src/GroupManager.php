@@ -96,6 +96,11 @@ class GroupManager {
    * Loads array of groups.
    */
   protected function loadGroups() {
+    // @todo:
+    return;
+
+
+
     $this->groups = array();
     $terms = $this->getAllGroupTerms();
     if ($terms) {
